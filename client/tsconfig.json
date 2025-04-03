@@ -3,6 +3,10 @@
     "target": "ES2020",
     "module": "ES2020",
     "moduleResolution": "bundler",
+    "baseUrl": ".",
+    "paths": {
+      "@protos/*": ["../protos/gen/ts/protos/*"]
+    },
     "allowJs": true,
     "resolveJsonModule": true,
     "isolatedModules": true,

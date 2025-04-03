@@ -16,12 +16,12 @@ plugins:
     out: server/api/swagger
   # TypeScript
   - plugin: es
-    out: client/src/gen
+    out: protos/gen/ts
     opt: 
       - target=ts
       - import_extension=none
   - plugin: connect-es
-    out: client/src/gen
+    out: protos/gen/ts
     opt: 
       - target=ts
       - import_extension=none 

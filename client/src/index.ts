@@ -1,6 +1,6 @@
 import { createConnectTransport } from "@connectrpc/connect-web";
 import { createClient } from "@connectrpc/connect";
-import { TodoService } from "./gen/proto/todo/v1/todo_connect.js";
+import { TodoService } from "@protos/v1/todo_connect";
 import { 
   CreateTodoRequest, 
   DeleteTodoRequest, 
@@ -9,7 +9,7 @@ import {
   ListTodosResponse,
   UpdateTodoRequest,
   Todo
-} from "./gen/proto/todo/v1/todo_pb.js";
+} from "@protos/v1/todo_pb";
 
 // Create a transport with debug logging
 const transport = createConnectTransport({

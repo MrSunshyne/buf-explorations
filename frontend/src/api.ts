@@ -1,7 +1,7 @@
 import { createClient } from "@connectrpc/connect";
 import { createGrpcWebTransport } from "@connectrpc/connect-web";
-import { TodoService } from "../../client/src/gen/todo/v1/todo_connect";
-import { CreateTodoRequest, UpdateTodoRequest } from "../../client/src/gen/todo/v1/todo_pb";
+import { TodoService } from "@protos/v1/todo_connect";
+import { CreateTodoRequest, UpdateTodoRequest } from "@protos/v1/todo_pb";
 
 const transport = createGrpcWebTransport({
   baseUrl: "http://localhost:8080",
@@ -49,4 +49,9 @@ export const todoApi = {
   async deleteTodo(id: string) {
     await client.deleteTodo({ id });
   }
-}; 
+};
+
+// Re-export the generated types needed by components
+// Also update the type import here if needed
+import type { Todo as GeneratedTodo } from "@protos/v1/todo_pb"; // Use alias
+export type { GeneratedTodo, CreateTodoRequest, UpdateTodoRequest }; 

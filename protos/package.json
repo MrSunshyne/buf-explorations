@@ -1,0 +1,9 @@
+{
+  "name": "@buf-explorations/protos",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "generate": "cd .. && buf generate",
+    "clean": "rm -rf gen"
+  }
+} 
