@@ -17,16 +17,16 @@ COPY server/go.mod server/go.sum ./server/
 COPY protos/ ./protos/
 COPY server/ ./server/
 
-# Change to the server module directory
-WORKDIR /app/server
+# Explicitly set WORKDIR to /app where go.work is located
+WORKDIR /app
 
 # Download dependencies (will respect go.work)
-# This benefits from caching if go.mod/go.sum/go.work haven't changed
-# RUN go mod download
+# Run from /app context where go.work is
+RUN go mod download # Removed invalid -workfile flag
 
-# Build the application
+# Build the application from the workspace root
 # Output the binary to the root for easy copying
-RUN go build -o /server ./cmd/server
+RUN go build -o /server ./server/cmd/server
 
 # ---- Final Stage ----
 FROM alpine:latest

@@ -18,3 +18,5 @@ require (
 	google.golang.org/genproto v0.0.0-20231030173426-d783a09b4405 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20231030173426-d783a09b4405 // indirect
 )
+
+replace github.com/MrSunshyne/buf-explorations/protos => ../protos
