@@ -10,9 +10,14 @@
     "buf": "pnpx @bufbuild/buf-linux-x64"
   },
   "devDependencies": {
-    "typescript": "^5.8.2",
     "@bufbuild/buf-linux-x64": "^1.51.0",
-    "@bufbuild/protoc-gen-es": "^2.2.5",
-    "@connectrpc/protoc-gen-connect-es": "^1.6.1"
+    "@bufbuild/protoc-gen-es": "^1.10.0",
+    "@connectrpc/protoc-gen-connect-es": "^1.6.1",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "@bufbuild/protobuf": "1.10.0",
+    "@connectrpc/connect": "1.6.1",
+    "@connectrpc/connect-web": "1.6.1"
   }
 }
