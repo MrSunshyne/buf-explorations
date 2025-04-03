@@ -1,0 +1,18 @@
+{
+  "name": "buf-explorations",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm -r --parallel dev",
+    "build": "pnpm -r build",
+    "clean": "pnpm -r clean",
+    "kill-server": "lsof -ti:9000,8080 | xargs kill -9 || true",
+    "buf": "pnpx @bufbuild/buf-linux-x64"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.2",
+    "@bufbuild/buf-linux-x64": "^1.51.0",
+    "@bufbuild/protoc-gen-es": "^2.2.5",
+    "@connectrpc/protoc-gen-connect-es": "^1.6.1"
+  }
+}

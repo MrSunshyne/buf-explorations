@@ -1,0 +1,27 @@
+version: v1
+plugins:
+  # Go
+  - plugin: go
+    out: server/gen
+    opt: paths=source_relative
+  - plugin: go-grpc
+    out: server/gen
+    opt: paths=source_relative
+  # REST Gateway
+  - plugin: grpc-gateway
+    out: server/gen
+    opt: paths=source_relative
+  # OpenAPI
+  - plugin: openapiv2
+    out: server/api/swagger
+  # TypeScript
+  - plugin: es
+    out: client/src/gen
+    opt: 
+      - target=ts
+      - import_extension=none
+  - plugin: connect-es
+    out: client/src/gen
+    opt: 
+      - target=ts
+      - import_extension=none 
