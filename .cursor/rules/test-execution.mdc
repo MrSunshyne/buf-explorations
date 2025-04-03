@@ -1,0 +1,58 @@
+---
+description: Guidelines for running tests to verify CRUD operations
+globs: ["tests/**/*.ts", "tests/package.json"]
+alwaysApply: true
+---
+# Test Execution Guidelines
+
+This rule specifies how to run tests to verify CRUD operations in the project.
+
+## Running Tests
+
+The tests package uses Vitest for testing. There are several ways to run the tests:
+
+1. Run all tests once:
+   ```bash
+   pnpm --filter tests test
+   ```
+
+2. Run tests in watch mode (useful during development):
+   ```bash
+   pnpm --filter tests test:watch
+   ```
+
+3. Run tests with coverage:
+   ```bash
+   pnpm --filter tests test:coverage
+   ```
+
+## Test Structure
+
+- Tests are located in the `tests/src` directory
+- Each test file should focus on a specific CRUD operation or feature
+- Tests should be independent and not rely on the state of other tests
+
+## Best Practices
+
+1. Always run tests before committing changes
+2. Use watch mode during development for faster feedback
+3. Run coverage tests before merging to ensure adequate test coverage
+4. Make sure the server is running before executing tests
+
+## Common Issues
+
+If tests fail:
+1. Ensure the server is running and accessible
+2. Check that all required environment variables are set
+3. Verify that the test database is in a clean state
+4. Check the test logs for specific error messages
+
+## Example Test Run
+
+```bash
+# Start the server (in a separate terminal)
+pnpm --filter server dev
+
+# Run tests
+pnpm --filter tests test
+``` 
