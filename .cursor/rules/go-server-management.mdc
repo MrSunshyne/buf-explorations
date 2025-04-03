@@ -1,0 +1,83 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+ ---
+description: How to manage the Go server in our monorepo
+globs: server/**/*.go
+alwaysApply: false
+---
+# Go Server Management
+
+This rule explains how to manage the Go server in our monorepo setup.
+
+## Starting the Server
+
+1. From the root directory:
+   ```bash
+   pnpm dev
+   ```
+   This will start both the server and client in parallel.
+
+2. From the server directory:
+   ```bash
+   cd server
+   pnpm dev
+   ```
+   This will start only the server.
+
+The server runs on:
+- gRPC port: 9000
+- REST port: 8080
+
+## Stopping the Server
+
+1. From the root directory:
+   ```bash
+   pnpm kill-server
+   ```
+   This will kill any processes running on ports 9000 and 8080.
+
+2. From the server directory:
+   ```bash
+   cd server
+   pnpm kill
+   ```
+   This will kill only the server processes.
+
+## Common Issues
+
+1. Port already in use:
+   ```bash
+   pnpm kill-server
+   pnpm dev
+   ```
+
+2. Server not responding:
+   - Check if the server is running: `lsof -i :9000,8080`
+   - Kill existing processes: `pnpm kill-server`
+   - Restart the server: `pnpm dev`
+
+## Development Workflow
+
+1. Start the server:
+   ```bash
+   pnpm dev
+   ```
+
+2. Make changes to the server code
+
+3. The server will automatically reload with changes
+
+4. To stop development:
+   ```bash
+   pnpm kill-server
+   ```
+
+## Notes
+
+- The server uses gRPC-Gateway to expose both gRPC and REST endpoints
+- CORS is enabled for the REST API
+- The server implements the TodoService with CRUD operations
+- Logs are printed to stdout/stderr

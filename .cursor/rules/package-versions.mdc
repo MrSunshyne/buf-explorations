@@ -1,0 +1,47 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: Specifies the required package versions for the project to ensure compatibility
+globs: client/package.json
+alwaysApply: true
+---
+# Package Version Requirements
+
+This rule specifies the exact versions of packages that should be used in the project to ensure compatibility between Connect, Buf, and TypeScript.
+
+## Required Versions
+
+The following package versions must be used:
+
+```json
+{
+  "dependencies": {
+    "@connectrpc/connect": "^2.0.2",
+    "@connectrpc/connect-web": "^2.0.2",
+    "@bufbuild/protobuf": "^2.2.5"
+  },
+  "devDependencies": {
+    "@bufbuild/protoc-gen-es": "^2.2.5",
+    "@connectrpc/protoc-gen-connect-es": "^1.6.1"
+  }
+}
+```
+
+## Version Compatibility
+
+These versions are specifically chosen to work together:
+- Connect packages (connect and connect-web) must be at version 2.0.2
+- Buf packages (protobuf and protoc-gen-es) must be at version 2.2.5
+- The Connect ES generator must be at version 1.6.1
+
+## Installation
+
+When installing dependencies, always use:
+```bash
+pnpm install
+```
+
+This will ensure the correct versions are installed based on the package.json specifications.

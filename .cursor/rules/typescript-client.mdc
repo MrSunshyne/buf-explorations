@@ -1,0 +1,47 @@
+---
+description: 
+globs: *.ts
+alwaysApply: false
+---
+ ---
+description: Enforces using createClient instead of the deprecated createPromiseClient in TypeScript files
+globs: ["client/**/*.ts", "client/**/*.tsx"]
+alwaysApply: true
+---
+# TypeScript Client Guidelines
+
+## Client Creation
+
+Always use `createClient` instead of the deprecated `createPromiseClient`:
+
+✅ Correct:
+```typescript
+import { createClient } from "@connectrpc/connect";
+const client = createClient(TodoService, transport);
+```
+
+❌ Incorrect:
+```typescript
+import { createPromiseClient } from "@connectrpc/connect";
+const client = createPromiseClient(TodoService, transport);
+```
+
+## Response Handling
+
+When using `createClient`, handle responses with type assertions:
+
+```typescript
+const response = await client.createTodo({
+  title: "Example",
+  description: "Description"
+});
+const todo = ((response as unknown) as { todo: Todo }).todo;
+```
+
+## Imports
+
+Always import from the correct package:
+```typescript
+import { createClient } from "@connectrpc/connect";
+import { UnaryRequest, UnaryResponse } from "@connectrpc/connect";
+```

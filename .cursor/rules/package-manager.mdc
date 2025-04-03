@@ -1,0 +1,78 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+ ---
+description: Enforce consistent package manager usage (pnpm) across the project
+globs: ["**/package.json", "**/*.md", "**/*.ts", "**/*.js"]
+alwaysApply: true
+---
+# Package Manager Usage Guidelines
+
+This project uses `pnpm` as the package manager. Always use pnpm commands instead of npm or yarn.
+
+## Installation
+
+1. Install pnpm globally if not already installed:
+   ```bash
+   curl -fsSL https://get.pnpm.io/install.sh | sh -
+   ```
+
+## Common Commands
+
+Use these pnpm commands instead of their npm equivalents:
+
+✅ Correct:
+```bash
+pnpm install              # instead of npm install
+pnpm add <package>        # instead of npm install <package>
+pnpm remove <package>     # instead of npm uninstall <package>
+pnpm run <script>         # instead of npm run <script>
+pnpm exec <command>       # instead of npx <command>
+pnpm -r <command>        # for running commands across all workspaces
+```
+
+❌ Incorrect:
+```bash
+npm install
+npm add <package>
+yarn add <package>
+npx <command>
+```
+
+## Workspace Management
+
+For monorepo operations:
+```bash
+pnpm -r <command>         # Run command in all workspaces
+pnpm --filter <pkg> <cmd> # Run command in specific workspace
+```
+
+## Scripts
+
+Always define scripts in `package.json` using pnpm:
+```json
+{
+  "scripts": {
+    "dev": "pnpm -r --parallel dev",
+    "build": "pnpm -r build",
+    "test": "pnpm -r test"
+  }
+}
+```
+
+## Dependencies
+
+When adding new dependencies:
+```bash
+pnpm add <package>        # Add to dependencies
+pnpm add -D <package>     # Add to devDependencies
+pnpm add -w <package>     # Add to root workspace
+```
+
+## Lockfile
+
+- Always commit `pnpm-lock.yaml`
+- Never commit `package-lock.json` or `yarn.lock`
+- Run `pnpm install` after pulling changes with updated dependencies
