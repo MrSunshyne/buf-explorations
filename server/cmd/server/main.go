@@ -40,7 +40,7 @@ func main() {
 	todoService := service.NewTodoService()
 	pb.RegisterTodoServiceServer(grpcServer, todoService)
 
-	// Start gRPC server
+	// Start gRPC server on port 9000
 	go func() {
 		log.Printf("Starting gRPC server on :9000")
 		lis, err := net.Listen("tcp", ":9000")
@@ -52,10 +52,8 @@ func main() {
 		}
 	}()
 
-	// Create a new gRPC-Gateway mux
+	// Create a new gRPC-Gateway mux for REST
 	gwmux := runtime.NewServeMux()
-
-	// Register the gRPC-Gateway handler
 	ctx := context.Background()
 	opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
 	err := pb.RegisterTodoServiceHandlerFromEndpoint(ctx, gwmux, "localhost:9000", opts)
@@ -63,10 +61,9 @@ func main() {
 		log.Fatalf("Failed to register gateway: %v", err)
 	}
 
-	// Add CORS middleware and serve the REST API
-	handler := corsMiddleware(gwmux)
-	log.Printf("Starting REST server on :8080")
-	if err := http.ListenAndServe(":8080", handler); err != nil {
+	// Start HTTP server with CORS middleware on port 8081
+	log.Printf("Starting HTTP server on :8081")
+	if err := http.ListenAndServe(":8081", corsMiddleware(gwmux)); err != nil {
 		log.Fatalf("Failed to serve HTTP: %v", err)
 	}
 } 
