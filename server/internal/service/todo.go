@@ -2,11 +2,12 @@ package service
 
 import (
 	"context"
-	"fmt"
 	"log"
 
 	"github.com/google/uuid"
 	pb "github.com/MrSunshyne/buf-explorations/server/gen/todo/v1"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
@@ -50,7 +51,8 @@ func (s *TodoService) GetTodo(ctx context.Context, req *pb.GetTodoRequest) (*pb.
 	log.Printf("GetTodo request: %+v", req)
 	todo, exists := s.todos[req.Id]
 	if !exists {
-		return nil, fmt.Errorf("todo not found: %s", req.Id)
+		log.Printf("Todo not found: %s", req.Id)
+		return nil, status.Errorf(codes.NotFound, "todo not found: %s", req.Id)
 	}
 	log.Printf("Retrieved todo: %+v", todo)
 	return &pb.GetTodoResponse{
@@ -96,7 +98,8 @@ func (s *TodoService) UpdateTodo(ctx context.Context, req *pb.UpdateTodoRequest)
 	log.Printf("UpdateTodo request: %+v", req)
 	todo, exists := s.todos[req.Id]
 	if !exists {
-		return nil, fmt.Errorf("todo not found: %s", req.Id)
+		log.Printf("Todo not found during update: %s", req.Id)
+		return nil, status.Errorf(codes.NotFound, "todo not found: %s", req.Id)
 	}
 	
 	todo.Title = req.Title
@@ -114,10 +117,12 @@ func (s *TodoService) UpdateTodo(ctx context.Context, req *pb.UpdateTodoRequest)
 func (s *TodoService) DeleteTodo(ctx context.Context, req *pb.DeleteTodoRequest) (*pb.DeleteTodoResponse, error) {
 	log.Printf("DeleteTodo request: %+v", req)
 	if _, exists := s.todos[req.Id]; !exists {
-		return nil, fmt.Errorf("todo not found: %s", req.Id)
+		log.Printf("Todo not found during delete: %s", req.Id)
+		// Return NotFound if trying to delete something that doesn't exist
+		return nil, status.Errorf(codes.NotFound, "todo not found: %s", req.Id)
 	}
 	
 	delete(s.todos, req.Id)
 	log.Printf("Deleted todo with ID: %s", req.Id)
 	return &pb.DeleteTodoResponse{}, nil
-} 
+}
