@@ -1,7 +1,8 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { todoApi, SimpleTodo, CreateTodoRequest, UpdateTodoRequest } from './api';
+import { todoApi } from './api';
 import { Code } from "@connectrpc/connect";
 import { ConnectError } from '@connectrpc/connect';
+import { CreateTodoRequest, UpdateTodoRequest } from "../../client/src/gen/todo/v1/todo_pb";
 
 let createdTodos: string[] = [];
 
