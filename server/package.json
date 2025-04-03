@@ -1,0 +1,11 @@
+{
+  "name": "@buf-explorations/server",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "go run cmd/server/main.go",
+    "build": "go build -o bin/server cmd/server/main.go",
+    "clean": "rm -rf bin/",
+    "kill": "lsof -ti:9000,8080 | xargs kill -9 || true"
+  }
+} 

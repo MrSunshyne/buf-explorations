@@ -1,6 +1,7 @@
 # Dependencies
 node_modules/
 .pnpm-store/
+package-lock.json
 
 # Build outputs
 dist/
@@ -18,6 +19,7 @@ go.work
 # IDE
 .idea/
 .vscode/
+.cursor/
 *.swp
 *.swo
 

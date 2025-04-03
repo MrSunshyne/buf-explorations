@@ -1,0 +1,108 @@
+syntax = "proto3";
+
+package todo.v1;
+
+option go_package = "github.com/MrSunshyne/buf-explorations/server/gen/todo/v1;todov1";
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+// Todo represents a single todo item
+message Todo {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  bool completed = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
+}
+
+// Create request
+message CreateTodoRequest {
+  string title = 1;
+  string description = 2;
+}
+
+// Create response
+message CreateTodoResponse {
+  Todo todo = 1;
+}
+
+// Update request
+message UpdateTodoRequest {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  bool completed = 4;
+}
+
+// Update response
+message UpdateTodoResponse {
+  Todo todo = 1;
+}
+
+// List request with pagination
+message ListTodosRequest {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+// List response
+message ListTodosResponse {
+  repeated Todo todos = 1;
+  string next_page_token = 2;
+}
+
+message GetTodoRequest {
+  string id = 1;
+}
+
+message GetTodoResponse {
+  Todo todo = 1;
+}
+
+message DeleteTodoRequest {
+  string id = 1;
+}
+
+message DeleteTodoResponse {}
+
+// Service definition
+service TodoService {
+  // Create a new todo
+  rpc CreateTodo(CreateTodoRequest) returns (CreateTodoResponse) {
+    option (google.api.http) = {
+      post: "/v1/todos"
+      body: "*"
+    };
+  }
+
+  // Get a specific todo
+  rpc GetTodo(GetTodoRequest) returns (GetTodoResponse) {
+    option (google.api.http) = {
+      get: "/v1/todos/{id}"
+    };
+  }
+
+  // List todos with pagination
+  rpc ListTodos(ListTodosRequest) returns (ListTodosResponse) {
+    option (google.api.http) = {
+      get: "/v1/todos"
+    };
+  }
+
+  // Update a todo
+  rpc UpdateTodo(UpdateTodoRequest) returns (UpdateTodoResponse) {
+    option (google.api.http) = {
+      patch: "/v1/todos/{id}"
+      body: "*"
+    };
+  }
+
+  // Delete a todo
+  rpc DeleteTodo(DeleteTodoRequest) returns (DeleteTodoResponse) {
+    option (google.api.http) = {
+      delete: "/v1/todos/{id}"
+    };
+  }
+} 
