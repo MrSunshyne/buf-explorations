@@ -2,14 +2,14 @@ version: v1
 plugins:
   # Go
   - plugin: go
-    out: server/gen
+    out: protos/gen/go
     opt: paths=source_relative
   - plugin: go-grpc
-    out: server/gen
+    out: protos/gen/go
     opt: paths=source_relative
   # REST Gateway
   - plugin: grpc-gateway
-    out: server/gen
+    out: protos/gen/go
     opt: paths=source_relative
   # OpenAPI
   - plugin: openapiv2

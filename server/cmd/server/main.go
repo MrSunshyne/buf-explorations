@@ -9,8 +9,9 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
+	"google.golang.org/grpc/reflection"
 
-	pb "github.com/MrSunshyne/buf-explorations/server/gen/todo/v1"
+	pb "github.com/MrSunshyne/buf-explorations/protos/gen/go/todo/v1"
 	"github.com/MrSunshyne/buf-explorations/server/internal/service"
 )
 

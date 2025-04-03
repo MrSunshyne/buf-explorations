@@ -5,7 +5,7 @@ import (
 	"log"
 
 	"github.com/google/uuid"
-	pb "github.com/MrSunshyne/buf-explorations/server/gen/todo/v1"
+	pb "github.com/MrSunshyne/buf-explorations/protos/gen/go/todo/v1"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/timestamppb"
