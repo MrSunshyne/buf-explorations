@@ -1,8 +1,18 @@
-import axios from 'axios';
+import { createClient } from "@connectrpc/connect";
+import { createGrpcWebTransport } from "@connectrpc/connect-web";
+import { TodoService } from "../../client/src/gen/todo/v1/todo_connect";
+import type { Todo as GeneratedTodo } from "../../client/src/gen/todo/v1/todo_pb";
+import { CreateTodoRequest, UpdateTodoRequest } from "../../client/src/gen/todo/v1/todo_pb";
 
-const API_BASE_URL = 'http://localhost:8080/v1';
+const transport = createGrpcWebTransport({
+  baseUrl: "http://localhost:8080",
+  useBinaryFormat: true,
+});
 
-export interface Todo {
+const client = createClient(TodoService, transport);
+
+// Define our own interface for the API responses
+export interface SimpleTodo {
   id: string;
   title: string;
   description: string;
@@ -11,39 +21,68 @@ export interface Todo {
   updatedAt: string;
 }
 
-export interface CreateTodoRequest {
-  title: string;
-  description: string;
-}
-
-export interface UpdateTodoRequest {
-  title?: string;
-  description?: string;
-  completed?: boolean;
-}
+export { CreateTodoRequest, UpdateTodoRequest };
 
 export const todoApi = {
-  async createTodo(data: CreateTodoRequest): Promise<Todo> {
-    const response = await axios.post(`${API_BASE_URL}/todos`, data);
-    return response.data.todo;
+  async createTodo(data: CreateTodoRequest): Promise<SimpleTodo> {
+    const response = await client.createTodo(data);
+    const todo = ((response as unknown) as { todo: GeneratedTodo }).todo;
+    return {
+      id: todo.id,
+      title: todo.title,
+      description: todo.description,
+      completed: todo.completed,
+      createdAt: todo.createdAt?.toDate().toISOString() || '',
+      updatedAt: todo.updatedAt?.toDate().toISOString() || '',
+    };
   },
 
-  async getTodo(id: string): Promise<Todo> {
-    const response = await axios.get(`${API_BASE_URL}/todos/${id}`);
-    return response.data.todo;
+  async getTodo(id: string): Promise<SimpleTodo> {
+    const response = await client.getTodo({ id });
+    const todo = ((response as unknown) as { todo: GeneratedTodo }).todo;
+    return {
+      id: todo.id,
+      title: todo.title,
+      description: todo.description,
+      completed: todo.completed,
+      createdAt: todo.createdAt?.toDate().toISOString() || '',
+      updatedAt: todo.updatedAt?.toDate().toISOString() || '',
+    };
   },
 
-  async listTodos(): Promise<Todo[]> {
-    const response = await axios.get(`${API_BASE_URL}/todos`);
-    return response.data.todos;
+  async listTodos(): Promise<SimpleTodo[]> {
+    const response = await client.listTodos({
+      pageSize: 100,
+      pageToken: "",
+    });
+    const todos = ((response as unknown) as { todos: GeneratedTodo[] }).todos;
+    return todos.map(todo => ({
+      id: todo.id,
+      title: todo.title,
+      description: todo.description,
+      completed: todo.completed,
+      createdAt: todo.createdAt?.toDate().toISOString() || '',
+      updatedAt: todo.updatedAt?.toDate().toISOString() || '',
+    }));
   },
 
-  async updateTodo(id: string, data: UpdateTodoRequest): Promise<Todo> {
-    const response = await axios.patch(`${API_BASE_URL}/todos/${id}`, data);
-    return response.data.todo;
+  async updateTodo(id: string, data: UpdateTodoRequest): Promise<SimpleTodo> {
+    const response = await client.updateTodo({
+      ...data,
+      id,
+    });
+    const todo = ((response as unknown) as { todo: GeneratedTodo }).todo;
+    return {
+      id: todo.id,
+      title: todo.title,
+      description: todo.description,
+      completed: todo.completed,
+      createdAt: todo.createdAt?.toDate().toISOString() || '',
+      updatedAt: todo.updatedAt?.toDate().toISOString() || '',
+    };
   },
 
   async deleteTodo(id: string): Promise<void> {
-    await axios.delete(`${API_BASE_URL}/todos/${id}`);
+    await client.deleteTodo({ id });
   }
 }; 
