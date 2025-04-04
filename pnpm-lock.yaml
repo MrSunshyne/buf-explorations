@@ -65,7 +65,7 @@ importers:
         specifier: ^6.2.4
         version: 6.2.4(@types/node@22.14.0)(tsx@4.19.3)
 
-  frontend:
+  client-vue:
     dependencies:
       '@bufbuild/protobuf':
         specifier: 1.10.0

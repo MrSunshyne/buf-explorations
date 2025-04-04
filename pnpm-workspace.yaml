@@ -1,6 +1,6 @@
 packages:
-  - 'server'
-  - 'client-ts' 
-  - 'tests'
-  - 'frontend'
   - 'protos'
+  - 'server'
+  - 'tests'
+  - 'client-ts' 
+  - 'client-vue'
