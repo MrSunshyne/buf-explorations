@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Calculate the path dynamically
-const protosPath = path.resolve(__dirname, '../protos/gen/ts/protos');
+const protosPath = path.resolve(__dirname, '../protos');
 
 export default defineConfig({
   // plugins: [tsconfigPaths()], // Remove plugin usage

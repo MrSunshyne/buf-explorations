@@ -1,7 +1,7 @@
 import { createClient } from "@connectrpc/connect";
 import { createGrpcWebTransport } from "@connectrpc/connect-web";
-import { TodoService } from "@protos/v1/todo_connect";
-import { CreateTodoRequest, UpdateTodoRequest } from "@protos/v1/todo_pb";
+import { TodoService } from "@protos/gen/ts/protos/v1/todo_connect";
+import { CreateTodoRequest, UpdateTodoRequest } from "@protos/gen/ts/protos/v1/todo_pb";
 
 const transport = createGrpcWebTransport({
   baseUrl: "http://localhost:8080",
