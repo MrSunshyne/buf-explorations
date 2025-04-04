@@ -10,9 +10,11 @@ This project demonstrates a modern full-stack application using Buf, gRPC, and T
 │   ├── cmd/         # Server entry points
 │   ├── internal/    # Internal server code
 │   └── gen/         # Generated gRPC code
-├── client/          # TypeScript client
-│   └── src/         # Client source code
-├── todo/            # Proto definitions
+├── client-ts/        # TypeScript CLI client
+│   └── src/         # TypeScript source code
+├── client-vue/       # Vue.js web client
+│   └── src/         # Vue source code
+├── protos/           # Proto definitions and generated code
 │   └── v1/          # Version 1 of the API
 ├── tests/           # Integration tests
 ├── Dockerfile       # Dockerfile for the Go server
@@ -25,7 +27,8 @@ This project demonstrates a modern full-stack application using Buf, gRPC, and T
 - **Go gRPC Server**: Implements a Todo service with CRUD operations.
 - **gRPC-Gateway**: Provides REST API endpoints alongside gRPC.
 - **Envoy Proxy**: Handles gRPC-Web translation and CORS, serving traffic on port 8080.
-- **TypeScript Client**: Type-safe client using Connect.
+- **TypeScript CLI Client**: Type-safe command-line client using Connect and direct TypeScript execution.
+- **Vue Web Client**: Browser-based client for interacting with the Todo service.
 - **Integration Tests**: Full test suite for the API.
 - **Modern Tooling**: Uses Buf for proto management, pnpm for package management, and Docker for containerization.
 
@@ -45,14 +48,29 @@ This project demonstrates a modern full-stack application using Buf, gRPC, and T
     pnpm install
     ```
 
-2.  Start the server and Envoy proxy:
+2.  Generate protobuf code:
+    ```bash
+    pnpm --filter @buf-explorations/protos generate
+    ```
+
+3.  Start the server and Envoy proxy:
     ```bash
     # Ensure no other services are running on ports 8080 or 9000
     docker compose up --build
     ```
     The services will run in the foreground. Use `-d` to run in detached mode.
 
-3.  Run the tests (in a separate terminal):
+4.  Run the TypeScript CLI client:
+    ```bash
+    pnpm --filter client-ts dev
+    ```
+
+5.  Run the Vue web client:
+    ```bash
+    pnpm --filter client-vue dev
+    ```
+
+6.  Run the tests (in a separate terminal):
     ```bash
     pnpm --filter tests test
     ```
@@ -76,7 +94,7 @@ Envoy proxies requests to the backend Go gRPC server running internally on port 
 
 ### gRPC API
 
-The gRPC service is defined in `todo/v1/todo.proto` and includes the following methods:
+The gRPC service is defined in `protos/v1/todo.proto` and includes the following methods:
 -   `CreateTodo`
 -   `GetTodo`
 -   `ListTodos`
@@ -87,14 +105,27 @@ The gRPC service is defined in `todo/v1/todo.proto` and includes the following m
 
 ### Generating Code
 
-Ensure you have the correct Go plugins installed (`protoc-gen-go` v1.31.0, `protoc-gen-go-grpc` v1.3.0, `protoc-gen-grpc-gateway` v2.18.1) and the Node plugins (`@bufbuild/protoc-gen-es`, `@connectrpc/protoc-gen-connect-es`) available via `node_modules/.bin`.
-
-To regenerate the gRPC code after modifying the proto files:
+The project uses Buf to generate code from the proto definitions.
 
 ```bash
-# Ensure Go binaries and local node_modules are in PATH
-export PATH="$(pwd)/node_modules/.bin:$HOME/go/bin:$PATH"
-buf generate
+# Generate all code from proto definitions 
+pnpm --filter @buf-explorations/protos generate
+```
+
+### Running the TypeScript CLI Client
+
+The TypeScript client uses `tsx` to run TypeScript code directly without a separate build step:
+
+```bash
+pnpm --filter client-ts dev
+```
+
+### Running the Vue Web Client
+
+The Vue web client uses Vite for development:
+
+```bash
+pnpm --filter client-vue dev
 ```
 
 ### Running Tests
@@ -114,6 +145,7 @@ pnpm --filter tests test:coverage # Run tests with coverage from the root
 3.  Provide examples of type-safe client implementation using Connect
 4.  Illustrate using Envoy for gRPC-Web translation
 5.  Showcase integration testing practices for gRPC services
+6.  Demonstrate running TypeScript directly without compilation
 
 ## Contributing
 
