@@ -5,12 +5,13 @@
     "moduleResolution": "bundler",
     "baseUrl": ".",
     "paths": {
-      "@protos/*": ["../protos/gen/ts/protos/*"]
+      "@protos/*": ["../protos/*"]
     },
     "allowJs": true,
+    "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": false,
+    "noEmit": true,
     "outDir": "dist",
     "esModuleInterop": true,
     "skipLibCheck": true,

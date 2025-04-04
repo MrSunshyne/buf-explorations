@@ -33,6 +33,9 @@ importers:
 
   client:
     dependencies:
+      '@buf-explorations/protos':
+        specifier: workspace:*
+        version: link:../protos
       '@bufbuild/protobuf':
         specifier: ^1.10.0
         version: 1.10.0
