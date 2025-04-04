@@ -7,7 +7,6 @@ services:
     ports:
       - "8080:8080"
       - "9901:9901"
-    network_mode: "host"
 
   server:
     build:
@@ -15,4 +14,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "9000:9000"
-    network_mode: "host" 
+      - "8081:8081"
+
+# Usage:
+# 1. For macOS: docker compose up -d
+# 2. For Linux with host networking: docker compose -f docker-compose.yml -f docker-compose.linux.yml up -d 

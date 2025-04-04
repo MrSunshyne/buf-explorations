@@ -1,0 +1,19 @@
+version: '3'
+services:
+  envoy:
+    network_mode: "host"
+    volumes:
+      - ./envoy.linux.yaml:/etc/envoy/envoy.yaml
+    # When using host networking, these port mappings are just documentation,
+    # as the ports are directly exposed on the host
+    ports:
+      - "8080:8080"
+      - "9901:9901"
+
+  server:
+    network_mode: "host"
+    # When using host networking, these port mappings are just documentation,
+    # as the ports are directly exposed on the host
+    ports:
+      - "9000:9000"
+      - "8081:8081" 

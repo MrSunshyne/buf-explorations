@@ -7,7 +7,13 @@
     "build": "pnpm -r build",
     "clean": "pnpm -r clean",
     "kill-server": "lsof -ti:9000,8080 | xargs kill -9 || true",
-    "buf": "pnpx @bufbuild/buf-linux-x64"
+    "buf": "pnpx @bufbuild/buf-linux-x64",
+    "start": "node -e \"require('child_process').execSync('uname -a', { stdio: 'inherit' }); require('child_process').execSync(process.platform === 'linux' ? 'pnpm run start:linux' : 'pnpm run start:default', { stdio: 'inherit' })\"",
+    "start:default": "docker compose up -d",
+    "start:linux": "docker compose -f docker-compose.yml -f docker-compose.linux.yml up -d",
+    "stop": "docker compose down",
+    "test": "pnpm --filter tests test",
+    "restart": "pnpm stop && pnpm start"
   },
   "devDependencies": {
     "@bufbuild/buf-linux-x64": "^1.51.0",
