@@ -4,7 +4,7 @@ import { TodoService } from "@protos/v1/todo_connect";
 import { CreateTodoRequest, UpdateTodoRequest } from "@protos/v1/todo_pb";
 
 const transport = createGrpcWebTransport({
-  baseUrl: "http://localhost:8080",
+  baseUrl: "http://localhost:9000",
   useBinaryFormat: true,
 });
 

@@ -1,36 +1,19 @@
 package main
 
 import (
-	"context"
 	"log"
 	"net"
 	"net/http"
 
-	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	"github.com/improbable-eng/grpc-web/go/grpcweb"
+	"github.com/rs/cors"
+	"golang.org/x/net/http2"
+	"golang.org/x/net/http2/h2c"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
 
 	"github.com/MrSunshyne/buf-explorations/server/internal/service"
 	pb "github.com/MrSunshyne/buf-explorations/protos/gen/go/protos/v1"
 )
-
-func corsMiddleware(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		log.Printf("Received request: %s %s", r.Method, r.URL.Path)
-		w.Header().Set("Access-Control-Allow-Origin", "*")
-		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-		w.Header().Set("Access-Control-Allow-Headers", "*")
-		w.Header().Set("Access-Control-Max-Age", "3600")
-		w.Header().Set("Access-Control-Allow-Credentials", "true")
-
-		if r.Method == "OPTIONS" {
-			w.WriteHeader(http.StatusOK)
-			return
-		}
-
-		next.ServeHTTP(w, r)
-	})
-}
 
 func main() {
 	// Create a new gRPC server
@@ -40,30 +23,53 @@ func main() {
 	todoService := service.NewTodoService()
 	pb.RegisterTodoServiceServer(grpcServer, todoService)
 
-	// Start gRPC server on port 9000
-	go func() {
-		log.Printf("Starting gRPC server on :9000")
-		lis, err := net.Listen("tcp", ":9000")
-		if err != nil {
-			log.Fatalf("Failed to listen: %v", err)
-		}
-		if err := grpcServer.Serve(lis); err != nil {
-			log.Fatalf("Failed to serve gRPC: %v", err)
-		}
-	}()
+	// Create a gRPC-Web wrapper around the gRPC server
+	wrappedGrpc := grpcweb.WrapServer(grpcServer,
+		grpcweb.WithOriginFunc(func(origin string) bool {
+			// Allow all origins
+			return true
+		}),
+		grpcweb.WithAllowedRequestHeaders([]string{"*"}),
+	)
 
-	// Create a new gRPC-Gateway mux for REST
-	gwmux := runtime.NewServeMux()
-	ctx := context.Background()
-	opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
-	err := pb.RegisterTodoServiceHandlerFromEndpoint(ctx, gwmux, "localhost:9000", opts)
+	// Create a handler that will multiplex between gRPC and gRPC-Web
+	handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if wrappedGrpc.IsGrpcWebRequest(r) || wrappedGrpc.IsAcceptableGrpcCorsRequest(r) {
+			log.Printf("Handling as gRPC-Web request: %s %s", r.Method, r.URL.Path)
+			wrappedGrpc.ServeHTTP(w, r)
+			return
+		}
+
+		// Handle as regular gRPC
+		log.Printf("Handling as gRPC request: %s %s", r.Method, r.URL.Path)
+		grpcServer.ServeHTTP(w, r)
+	})
+
+	// Add CORS support
+	corsHandler := cors.New(cors.Options{
+		AllowedOrigins:   []string{"*"},
+		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowedHeaders:   []string{"*"},
+		ExposedHeaders:   []string{"grpc-status", "grpc-message"},
+		AllowCredentials: true,
+	}).Handler(handler)
+
+	// Create a TCP listener
+	lis, err := net.Listen("tcp", ":9000")
 	if err != nil {
-		log.Fatalf("Failed to register gateway: %v", err)
+		log.Fatalf("Failed to listen: %v", err)
 	}
 
-	// Start HTTP server with CORS middleware on port 8081
-	log.Printf("Starting HTTP server on :8081")
-	if err := http.ListenAndServe(":8081", corsMiddleware(gwmux)); err != nil {
-		log.Fatalf("Failed to serve HTTP: %v", err)
+	// Create an HTTP/2 server
+	h2srv := &http2.Server{}
+
+	// Create an HTTP server that supports both HTTP/1.1 and HTTP/2
+	srv := &http.Server{
+		Handler: h2c.NewHandler(corsHandler, h2srv),
+	}
+
+	log.Printf("Starting server on :9000 (supports gRPC, gRPC-Web, and HTTP/2)")
+	if err := srv.Serve(lis); err != nil {
+		log.Fatalf("Failed to serve: %v", err)
 	}
 } 
