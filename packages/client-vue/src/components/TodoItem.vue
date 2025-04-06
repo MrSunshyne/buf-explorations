@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { Todo } from '../api';
+import type { Todo } from '@buf-explorations/protos/gen/ts/v1/todo_pb';
 
 const props = defineProps<{
   todo: Todo;

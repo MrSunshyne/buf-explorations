@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import type { Todo } from '@buf-explorations/protos/gen/ts/v1/todo_pb';
+
+type TodoInput = Pick<Todo, "name" | "description">;
 
 const emit = defineEmits<{
-  (e: 'submit', todo: { name: string; description: string }): void;
+  (e: 'submit', todo: TodoInput): void;
 }>();
 
 const name = ref('');

@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { todoApi } from './api';
-import type { Todo, CreateTodoInput, UpdateTodoInput } from './api';
+import { client } from './client';
+import { create } from "@bufbuild/protobuf";
+import type { Todo } from "@buf-explorations/protos/gen/ts/v1/todo_pb";
+import { CreateTodoRequestSchema, UpdateTodoRequestSchema } from "@buf-explorations/protos/gen/ts/v1/todo_pb";
 import TodoForm from './components/TodoForm.vue';
 import TodoItem from './components/TodoItem.vue';
+
+type TodoInput = Pick<Todo, "name" | "description">;
 
 const todos = ref<Todo[]>([]);
 const isLoading = ref(false);
@@ -13,7 +17,11 @@ const fetchTodos = async () => {
   isLoading.value = true;
   error.value = null;
   try {
-    todos.value = await todoApi.listTodos();
+    const response = await client.listTodos({
+      pageSize: 100,
+      pageToken: "",
+    });
+    todos.value = response.todos;
   } catch (err) {
     console.error("Failed to fetch todos:", err);
     error.value = 'Failed to load todos. Please try again later.';
@@ -22,12 +30,16 @@ const fetchTodos = async () => {
   }
 };
 
-const addTodo = async (newTodoData: CreateTodoInput) => {
+const addTodo = async (input: TodoInput) => {
   isLoading.value = true;
   error.value = null;
   try {
-    const createdTodo = await todoApi.createTodo(newTodoData);
-    todos.value.push(createdTodo);
+    const request = create(CreateTodoRequestSchema, input);
+    const response = await client.createTodo(request);
+    if (!response.todo) {
+      throw new Error("createTodo response did not contain a todo object.");
+    }
+    todos.value.push(response.todo);
   } catch (err) {
     console.error("Failed to add todo:", err);
     error.value = 'Failed to add todo.';
@@ -40,7 +52,7 @@ const deleteTodo = async (id: string) => {
   isLoading.value = true;
   error.value = null;
   try {
-    await todoApi.deleteTodo(id);
+    await client.deleteTodo({ id });
     todos.value = todos.value.filter(todo => todo.id !== id);
   } catch (err) {
     console.error("Failed to delete todo:", err);
@@ -57,14 +69,19 @@ const updateTodo = async (id: string, updates: { name: string; description: stri
     const currentTodo = todos.value.find(t => t.id === id);
     if (!currentTodo) throw new Error('Todo not found');
 
-    const updatedTodo = await todoApi.updateTodo(id, {
+    const request = create(UpdateTodoRequestSchema, {
+      id,
       name: updates.name,
       description: updates.description,
       completed: currentTodo.completed
     });
+    const response = await client.updateTodo(request);
+    if (!response.todo) {
+      throw new Error("updateTodo response did not contain a todo object.");
+    }
     const index = todos.value.findIndex(t => t.id === id);
     if (index !== -1) {
-      todos.value[index] = updatedTodo;
+      todos.value[index] = response.todo;
     }
   } catch (err) {
     console.error("Failed to update todo:", err);
@@ -78,14 +95,19 @@ const toggleTodo = async (todo: Todo) => {
   isLoading.value = true;
   error.value = null;
   try {
-    const updatedTodo = await todoApi.updateTodo(todo.id, {
+    const request = create(UpdateTodoRequestSchema, {
+      id: todo.id,
       name: todo.name,
       description: todo.description,
       completed: !todo.completed
     });
+    const response = await client.updateTodo(request);
+    if (!response.todo) {
+      throw new Error("updateTodo response did not contain a todo object.");
+    }
     const index = todos.value.findIndex(t => t.id === todo.id);
     if (index !== -1) {
-      todos.value[index] = updatedTodo;
+      todos.value[index] = response.todo;
     }
   } catch (err) {
     console.error("Failed to toggle todo:", err);
