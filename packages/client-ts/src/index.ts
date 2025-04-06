@@ -28,7 +28,7 @@ async function main() {
     // Create a new todo
     console.log("📝 Creating todo...");
     const createResponse = await client.createTodo({
-      title: "Learn gRPC",
+      name: "Learn gRPC",
       description: "Understand how to use gRPC with TypeScript",
     });
     console.log(`✨ Todo created with ID: ${createResponse.todo?.id}`);
@@ -55,7 +55,7 @@ async function main() {
     console.log("✏️ Updating todo...");
     const updateResponse = await client.updateTodo({
       id: createResponse.todo.id,
-      title: "Learn gRPC - Updated",
+      name: "Learn gRPC - Updated",
       description: "Understanding how to use gRPC with TypeScript - Completed!",
       completed: true,
     });
