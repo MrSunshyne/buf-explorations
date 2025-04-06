@@ -39,18 +39,6 @@ importers:
       '@buf-explorations/protos':
         specifier: workspace:*
         version: link:../protos
-      '@bufbuild/protobuf':
-        specifier: ^1.10.0
-        version: 1.10.0
-      '@connectrpc/connect':
-        specifier: ^1.6.1
-        version: 1.6.1(@bufbuild/protobuf@1.10.0)
-      '@connectrpc/connect-node':
-        specifier: ^1.6.1
-        version: 1.6.1(@bufbuild/protobuf@1.10.0)(@connectrpc/connect@1.6.1(@bufbuild/protobuf@1.10.0))
-      '@connectrpc/connect-web':
-        specifier: ^1.6.1
-        version: 1.6.1(@bufbuild/protobuf@1.10.0)(@connectrpc/connect@1.6.1(@bufbuild/protobuf@1.10.0))
     devDependencies:
       '@bufbuild/protoc-gen-es':
         specifier: ^1.10.0
@@ -70,15 +58,6 @@ importers:
 
   client-vue:
     dependencies:
-      '@bufbuild/protobuf':
-        specifier: 1.10.0
-        version: 1.10.0
-      '@connectrpc/connect':
-        specifier: ^1.6.1
-        version: 1.6.1(@bufbuild/protobuf@1.10.0)
-      '@connectrpc/connect-web':
-        specifier: ^1.6.1
-        version: 1.6.1(@bufbuild/protobuf@1.10.0)(@connectrpc/connect@1.6.1(@bufbuild/protobuf@1.10.0))
       vue:
         specifier: ^3.5.13
         version: 3.5.13(typescript@5.7.3)
@@ -126,15 +105,6 @@ importers:
       '@buf-explorations/protos':
         specifier: workspace:*
         version: link:../protos
-      '@bufbuild/protobuf':
-        specifier: 1.10.0
-        version: 1.10.0
-      '@connectrpc/connect':
-        specifier: ^1.6.1
-        version: 1.6.1(@bufbuild/protobuf@1.10.0)
-      '@connectrpc/connect-web':
-        specifier: ^1.6.1
-        version: 1.6.1(@bufbuild/protobuf@1.10.0)(@connectrpc/connect@1.6.1(@bufbuild/protobuf@1.10.0))
     devDependencies:
       '@types/node':
         specifier: ^22.14.0

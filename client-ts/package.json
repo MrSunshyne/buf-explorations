@@ -8,10 +8,6 @@
     "dev": "node --no-warnings --import tsx src/index.ts"
   },
   "dependencies": {
-    "@bufbuild/protobuf": "^1.10.0",
-    "@connectrpc/connect": "^1.6.1",
-    "@connectrpc/connect-node": "^1.6.1",
-    "@connectrpc/connect-web": "^1.6.1",
     "@buf-explorations/protos": "workspace:*"
   },
   "devDependencies": {
