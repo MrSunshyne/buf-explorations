@@ -1,4 +1,4 @@
-import { createGrpcWebTransport } from "@connectrpc/connect-web";
+import { createGrpcTransport } from "@connectrpc/connect-node";
 import { createClient } from "@connectrpc/connect";
 import { TodoService } from "../../protos/gen/ts/protos/v1/todo_connect.ts";
 import { 
@@ -12,9 +12,9 @@ import {
 } from "../../protos/gen/ts/protos/v1/todo_pb.ts";
 
 // Create a transport with debug logging
-const transport = createGrpcWebTransport({
-  baseUrl: "http://localhost:8080",
-  useBinaryFormat: true,
+const transport = createGrpcTransport({
+  baseUrl: "http://localhost:9000",
+  httpVersion: "2",
   interceptors: [
     (next) => async (req) => {
       const { url, method } = req;
@@ -41,15 +41,19 @@ async function main() {
       title: "Learn gRPC",
       description: "Understand how to use gRPC with TypeScript",
     });
-    const createdTodo = ((createResponse as unknown) as { todo: Todo }).todo;
-    console.log(`✨ Todo created with ID: ${createdTodo.id}`);
+    const createdTodo = createResponse.todo;
+    console.log(`✨ Todo created with ID: ${createdTodo?.id}`);
+
+    if (!createdTodo) {
+      throw new Error("Failed to create todo");
+    }
 
     // Get the created todo
     console.log("🔍 Getting todo...");
     const getResponse = await client.getTodo({
       id: createdTodo.id,
     });
-    const retrievedTodo = ((getResponse as unknown) as { todo: Todo }).todo;
+    const retrievedTodo = getResponse.todo;
     console.log(`📋 Todo retrieved`);
 
     // List all todos
@@ -57,7 +61,7 @@ async function main() {
     const listResponse = await client.listTodos({
       pageSize: 10,
     });
-    const todos = ((listResponse as unknown) as ListTodosResponse).todos;
+    const todos = listResponse.todos;
     console.log(`📊 Found ${todos.length} todos`);
 
     // Update the todo
@@ -68,7 +72,7 @@ async function main() {
       description: "Understanding how to use gRPC with TypeScript - Completed!",
       completed: true,
     });
-    const updatedTodo = ((updateResponse as unknown) as { todo: Todo }).todo;
+    const updatedTodo = updateResponse.todo;
     console.log(`🔄 Todo updated`);
 
     // Delete the todo
