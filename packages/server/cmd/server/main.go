@@ -10,6 +10,7 @@ import (
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 
 	"github.com/MrSunshyne/buf-explorations/server/internal/service"
 	pb "github.com/MrSunshyne/buf-explorations/protos/gen/go/protos/v1"
@@ -22,6 +23,9 @@ func main() {
 	// Register the TodoService
 	todoService := service.NewTodoService()
 	pb.RegisterTodoServiceServer(grpcServer, todoService)
+
+	// Enable gRPC reflection
+	reflection.Register(grpcServer)
 
 	// Create a gRPC-Web wrapper around the gRPC server
 	wrappedGrpc := grpcweb.WrapServer(grpcServer,
