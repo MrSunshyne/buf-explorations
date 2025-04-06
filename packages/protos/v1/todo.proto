@@ -6,6 +6,34 @@ option go_package = "github.com/MrSunshyne/buf-explorations/protos/gen/go/todo/v
 
 import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/any.proto";
+
+// Meeting metadata for todos
+message MeetingMetadata {
+  string meeting_link = 1;
+  repeated string attendees = 2;
+  string agenda = 3;
+}
+
+// Deadline metadata for todos
+message DeadlineMetadata {
+  enum Priority {
+    PRIORITY_UNSPECIFIED = 0;
+    PRIORITY_LOW = 1;
+    PRIORITY_MEDIUM = 2;
+    PRIORITY_HIGH = 3;
+  }
+  Priority priority = 1;
+  string project = 2;
+  google.protobuf.Timestamp deadline = 3;
+}
+
+// Shopping metadata for todos
+message ShoppingMetadata {
+  int32 quantity = 1;
+  double price = 2;
+  string store = 3;
+}
 
 // Todo represents a single todo item
 message Todo {
@@ -15,12 +43,14 @@ message Todo {
   bool completed = 4;
   google.protobuf.Timestamp created_at = 5;
   google.protobuf.Timestamp updated_at = 6;
+  google.protobuf.Any metadata = 7;
 }
 
 // Create request
 message CreateTodoRequest {
   string name = 1;
   string description = 2;
+  google.protobuf.Any metadata = 3;
 }
 
 // Create response

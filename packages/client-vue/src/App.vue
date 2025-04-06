@@ -3,11 +3,12 @@ import { ref, onMounted } from 'vue';
 import { client } from './client';
 import { create } from "@bufbuild/protobuf";
 import type { Todo } from "@buf-explorations/protos/gen/ts/v1/todo_pb";
+import type { Any } from "@bufbuild/protobuf/wkt";
 import { CreateTodoRequestSchema, UpdateTodoRequestSchema } from "@buf-explorations/protos/gen/ts/v1/todo_pb";
 import TodoForm from './components/TodoForm.vue';
 import TodoItem from './components/TodoItem.vue';
 
-type TodoInput = Pick<Todo, "name" | "description">;
+type TodoInput = Pick<Todo, "name" | "description"> & { metadata?: Any };
 
 const todos = ref<Todo[]>([]);
 const isLoading = ref(false);
@@ -34,7 +35,11 @@ const addTodo = async (input: TodoInput) => {
   isLoading.value = true;
   error.value = null;
   try {
-    const request = create(CreateTodoRequestSchema, input);
+    const request = create(CreateTodoRequestSchema, {
+      name: input.name,
+      description: input.description,
+      metadata: input.metadata
+    });
     const response = await client.createTodo(request);
     if (!response.todo) {
       throw new Error("createTodo response did not contain a todo object.");

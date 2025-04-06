@@ -2,18 +2,136 @@
 // @generated from file v1/todo.proto (package todo.v1, syntax proto3)
 /* eslint-disable */
 
-import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
-import { fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv1";
+import type { GenEnum, GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
+import { enumDesc, fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv1";
 import { file_google_api_annotations } from "../google/api/annotations_pb";
-import type { Timestamp } from "@bufbuild/protobuf/wkt";
-import { file_google_protobuf_timestamp } from "@bufbuild/protobuf/wkt";
+import type { Any, Timestamp } from "@bufbuild/protobuf/wkt";
+import { file_google_protobuf_any, file_google_protobuf_timestamp } from "@bufbuild/protobuf/wkt";
 import type { Message } from "@bufbuild/protobuf";
 
 /**
  * Describes the file v1/todo.proto.
  */
 export const file_v1_todo: GenFile = /*@__PURE__*/
-  fileDesc("Cg12MS90b2RvLnByb3RvEgd0b2RvLnYxIqgBCgRUb2RvEgoKAmlkGAEgASgJEgwKBG5hbWUYAiABKAkSEwoLZGVzY3JpcHRpb24YAyABKAkSEQoJY29tcGxldGVkGAQgASgIEi4KCmNyZWF0ZWRfYXQYBSABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEi4KCnVwZGF0ZWRfYXQYBiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIjYKEUNyZWF0ZVRvZG9SZXF1ZXN0EgwKBG5hbWUYASABKAkSEwoLZGVzY3JpcHRpb24YAiABKAkiMQoSQ3JlYXRlVG9kb1Jlc3BvbnNlEhsKBHRvZG8YASABKAsyDS50b2RvLnYxLlRvZG8iVQoRVXBkYXRlVG9kb1JlcXVlc3QSCgoCaWQYASABKAkSDAoEbmFtZRgCIAEoCRITCgtkZXNjcmlwdGlvbhgDIAEoCRIRCgljb21wbGV0ZWQYBCABKAgiMQoSVXBkYXRlVG9kb1Jlc3BvbnNlEhsKBHRvZG8YASABKAsyDS50b2RvLnYxLlRvZG8iOQoQTGlzdFRvZG9zUmVxdWVzdBIRCglwYWdlX3NpemUYASABKAUSEgoKcGFnZV90b2tlbhgCIAEoCSJKChFMaXN0VG9kb3NSZXNwb25zZRIcCgV0b2RvcxgBIAMoCzINLnRvZG8udjEuVG9kbxIXCg9uZXh0X3BhZ2VfdG9rZW4YAiABKAkiHAoOR2V0VG9kb1JlcXVlc3QSCgoCaWQYASABKAkiLgoPR2V0VG9kb1Jlc3BvbnNlEhsKBHRvZG8YASABKAsyDS50b2RvLnYxLlRvZG8iHwoRRGVsZXRlVG9kb1JlcXVlc3QSCgoCaWQYASABKAkiFAoSRGVsZXRlVG9kb1Jlc3BvbnNlMtgDCgtUb2RvU2VydmljZRJbCgpDcmVhdGVUb2RvEhoudG9kby52MS5DcmVhdGVUb2RvUmVxdWVzdBobLnRvZG8udjEuQ3JlYXRlVG9kb1Jlc3BvbnNlIhSC0+STAg46ASoiCS92MS90b2RvcxJUCgdHZXRUb2RvEhcudG9kby52MS5HZXRUb2RvUmVxdWVzdBoYLnRvZG8udjEuR2V0VG9kb1Jlc3BvbnNlIhaC0+STAhASDi92MS90b2Rvcy97aWR9ElUKCUxpc3RUb2RvcxIZLnRvZG8udjEuTGlzdFRvZG9zUmVxdWVzdBoaLnRvZG8udjEuTGlzdFRvZG9zUmVzcG9uc2UiEYLT5JMCCxIJL3YxL3RvZG9zEmAKClVwZGF0ZVRvZG8SGi50b2RvLnYxLlVwZGF0ZVRvZG9SZXF1ZXN0GhsudG9kby52MS5VcGRhdGVUb2RvUmVzcG9uc2UiGYLT5JMCEzoBKjIOL3YxL3RvZG9zL3tpZH0SXQoKRGVsZXRlVG9kbxIaLnRvZG8udjEuRGVsZXRlVG9kb1JlcXVlc3QaGy50b2RvLnYxLkRlbGV0ZVRvZG9SZXNwb25zZSIWgtPkkwIQKg4vdjEvdG9kb3Mve2lkfUJFWkNnaXRodWIuY29tL01yU3Vuc2h5bmUvYnVmLWV4cGxvcmF0aW9ucy9wcm90b3MvZ2VuL2dvL3RvZG8vdjE7dG9kb3YxYgZwcm90bzM", [file_google_api_annotations, file_google_protobuf_timestamp]);
+  fileDesc("Cg12MS90b2RvLnByb3RvEgd0b2RvLnYxIkoKD01lZXRpbmdNZXRhZGF0YRIUCgxtZWV0aW5nX2xpbmsYASABKAkSEQoJYXR0ZW5kZWVzGAIgAygJEg4KBmFnZW5kYRgDIAEoCSLnAQoQRGVhZGxpbmVNZXRhZGF0YRI0Cghwcmlvcml0eRgBIAEoDjIiLnRvZG8udjEuRGVhZGxpbmVNZXRhZGF0YS5Qcmlvcml0eRIPCgdwcm9qZWN0GAIgASgJEiwKCGRlYWRsaW5lGAMgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCJeCghQcmlvcml0eRIYChRQUklPUklUWV9VTlNQRUNJRklFRBAAEhAKDFBSSU9SSVRZX0xPVxABEhMKD1BSSU9SSVRZX01FRElVTRACEhEKDVBSSU9SSVRZX0hJR0gQAyJCChBTaG9wcGluZ01ldGFkYXRhEhAKCHF1YW50aXR5GAEgASgFEg0KBXByaWNlGAIgASgBEg0KBXN0b3JlGAMgASgJItABCgRUb2RvEgoKAmlkGAEgASgJEgwKBG5hbWUYAiABKAkSEwoLZGVzY3JpcHRpb24YAyABKAkSEQoJY29tcGxldGVkGAQgASgIEi4KCmNyZWF0ZWRfYXQYBSABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEi4KCnVwZGF0ZWRfYXQYBiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEiYKCG1ldGFkYXRhGAcgASgLMhQuZ29vZ2xlLnByb3RvYnVmLkFueSJeChFDcmVhdGVUb2RvUmVxdWVzdBIMCgRuYW1lGAEgASgJEhMKC2Rlc2NyaXB0aW9uGAIgASgJEiYKCG1ldGFkYXRhGAMgASgLMhQuZ29vZ2xlLnByb3RvYnVmLkFueSIxChJDcmVhdGVUb2RvUmVzcG9uc2USGwoEdG9kbxgBIAEoCzINLnRvZG8udjEuVG9kbyJVChFVcGRhdGVUb2RvUmVxdWVzdBIKCgJpZBgBIAEoCRIMCgRuYW1lGAIgASgJEhMKC2Rlc2NyaXB0aW9uGAMgASgJEhEKCWNvbXBsZXRlZBgEIAEoCCIxChJVcGRhdGVUb2RvUmVzcG9uc2USGwoEdG9kbxgBIAEoCzINLnRvZG8udjEuVG9kbyI5ChBMaXN0VG9kb3NSZXF1ZXN0EhEKCXBhZ2Vfc2l6ZRgBIAEoBRISCgpwYWdlX3Rva2VuGAIgASgJIkoKEUxpc3RUb2Rvc1Jlc3BvbnNlEhwKBXRvZG9zGAEgAygLMg0udG9kby52MS5Ub2RvEhcKD25leHRfcGFnZV90b2tlbhgCIAEoCSIcCg5HZXRUb2RvUmVxdWVzdBIKCgJpZBgBIAEoCSIuCg9HZXRUb2RvUmVzcG9uc2USGwoEdG9kbxgBIAEoCzINLnRvZG8udjEuVG9kbyIfChFEZWxldGVUb2RvUmVxdWVzdBIKCgJpZBgBIAEoCSIUChJEZWxldGVUb2RvUmVzcG9uc2Uy2AMKC1RvZG9TZXJ2aWNlElsKCkNyZWF0ZVRvZG8SGi50b2RvLnYxLkNyZWF0ZVRvZG9SZXF1ZXN0GhsudG9kby52MS5DcmVhdGVUb2RvUmVzcG9uc2UiFILT5JMCDjoBKiIJL3YxL3RvZG9zElQKB0dldFRvZG8SFy50b2RvLnYxLkdldFRvZG9SZXF1ZXN0GhgudG9kby52MS5HZXRUb2RvUmVzcG9uc2UiFoLT5JMCEBIOL3YxL3RvZG9zL3tpZH0SVQoJTGlzdFRvZG9zEhkudG9kby52MS5MaXN0VG9kb3NSZXF1ZXN0GhoudG9kby52MS5MaXN0VG9kb3NSZXNwb25zZSIRgtPkkwILEgkvdjEvdG9kb3MSYAoKVXBkYXRlVG9kbxIaLnRvZG8udjEuVXBkYXRlVG9kb1JlcXVlc3QaGy50b2RvLnYxLlVwZGF0ZVRvZG9SZXNwb25zZSIZgtPkkwITOgEqMg4vdjEvdG9kb3Mve2lkfRJdCgpEZWxldGVUb2RvEhoudG9kby52MS5EZWxldGVUb2RvUmVxdWVzdBobLnRvZG8udjEuRGVsZXRlVG9kb1Jlc3BvbnNlIhaC0+STAhAqDi92MS90b2Rvcy97aWR9QkVaQ2dpdGh1Yi5jb20vTXJTdW5zaHluZS9idWYtZXhwbG9yYXRpb25zL3Byb3Rvcy9nZW4vZ28vdG9kby92MTt0b2RvdjFiBnByb3RvMw", [file_google_api_annotations, file_google_protobuf_timestamp, file_google_protobuf_any]);
+
+/**
+ * Meeting metadata for todos
+ *
+ * @generated from message todo.v1.MeetingMetadata
+ */
+export type MeetingMetadata = Message<"todo.v1.MeetingMetadata"> & {
+  /**
+   * @generated from field: string meeting_link = 1;
+   */
+  meetingLink: string;
+
+  /**
+   * @generated from field: repeated string attendees = 2;
+   */
+  attendees: string[];
+
+  /**
+   * @generated from field: string agenda = 3;
+   */
+  agenda: string;
+};
+
+/**
+ * Describes the message todo.v1.MeetingMetadata.
+ * Use `create(MeetingMetadataSchema)` to create a new message.
+ */
+export const MeetingMetadataSchema: GenMessage<MeetingMetadata> = /*@__PURE__*/
+  messageDesc(file_v1_todo, 0);
+
+/**
+ * Deadline metadata for todos
+ *
+ * @generated from message todo.v1.DeadlineMetadata
+ */
+export type DeadlineMetadata = Message<"todo.v1.DeadlineMetadata"> & {
+  /**
+   * @generated from field: todo.v1.DeadlineMetadata.Priority priority = 1;
+   */
+  priority: DeadlineMetadata_Priority;
+
+  /**
+   * @generated from field: string project = 2;
+   */
+  project: string;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp deadline = 3;
+   */
+  deadline?: Timestamp;
+};
+
+/**
+ * Describes the message todo.v1.DeadlineMetadata.
+ * Use `create(DeadlineMetadataSchema)` to create a new message.
+ */
+export const DeadlineMetadataSchema: GenMessage<DeadlineMetadata> = /*@__PURE__*/
+  messageDesc(file_v1_todo, 1);
+
+/**
+ * @generated from enum todo.v1.DeadlineMetadata.Priority
+ */
+export enum DeadlineMetadata_Priority {
+  /**
+   * @generated from enum value: PRIORITY_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: PRIORITY_LOW = 1;
+   */
+  LOW = 1,
+
+  /**
+   * @generated from enum value: PRIORITY_MEDIUM = 2;
+   */
+  MEDIUM = 2,
+
+  /**
+   * @generated from enum value: PRIORITY_HIGH = 3;
+   */
+  HIGH = 3,
+}
+
+/**
+ * Describes the enum todo.v1.DeadlineMetadata.Priority.
+ */
+export const DeadlineMetadata_PrioritySchema: GenEnum<DeadlineMetadata_Priority> = /*@__PURE__*/
+  enumDesc(file_v1_todo, 1, 0);
+
+/**
+ * Shopping metadata for todos
+ *
+ * @generated from message todo.v1.ShoppingMetadata
+ */
+export type ShoppingMetadata = Message<"todo.v1.ShoppingMetadata"> & {
+  /**
+   * @generated from field: int32 quantity = 1;
+   */
+  quantity: number;
+
+  /**
+   * @generated from field: double price = 2;
+   */
+  price: number;
+
+  /**
+   * @generated from field: string store = 3;
+   */
+  store: string;
+};
+
+/**
+ * Describes the message todo.v1.ShoppingMetadata.
+ * Use `create(ShoppingMetadataSchema)` to create a new message.
+ */
+export const ShoppingMetadataSchema: GenMessage<ShoppingMetadata> = /*@__PURE__*/
+  messageDesc(file_v1_todo, 2);
 
 /**
  * Todo represents a single todo item
@@ -50,6 +168,11 @@ export type Todo = Message<"todo.v1.Todo"> & {
    * @generated from field: google.protobuf.Timestamp updated_at = 6;
    */
   updatedAt?: Timestamp;
+
+  /**
+   * @generated from field: google.protobuf.Any metadata = 7;
+   */
+  metadata?: Any;
 };
 
 /**
@@ -57,7 +180,7 @@ export type Todo = Message<"todo.v1.Todo"> & {
  * Use `create(TodoSchema)` to create a new message.
  */
 export const TodoSchema: GenMessage<Todo> = /*@__PURE__*/
-  messageDesc(file_v1_todo, 0);
+  messageDesc(file_v1_todo, 3);
 
 /**
  * Create request
@@ -74,6 +197,11 @@ export type CreateTodoRequest = Message<"todo.v1.CreateTodoRequest"> & {
    * @generated from field: string description = 2;
    */
   description: string;
+
+  /**
+   * @generated from field: google.protobuf.Any metadata = 3;
+   */
+  metadata?: Any;
 };
 
 /**
@@ -81,7 +209,7 @@ export type CreateTodoRequest = Message<"todo.v1.CreateTodoRequest"> & {
  * Use `create(CreateTodoRequestSchema)` to create a new message.
  */
 export const CreateTodoRequestSchema: GenMessage<CreateTodoRequest> = /*@__PURE__*/
-  messageDesc(file_v1_todo, 1);
+  messageDesc(file_v1_todo, 4);
 
 /**
  * Create response
@@ -100,7 +228,7 @@ export type CreateTodoResponse = Message<"todo.v1.CreateTodoResponse"> & {
  * Use `create(CreateTodoResponseSchema)` to create a new message.
  */
 export const CreateTodoResponseSchema: GenMessage<CreateTodoResponse> = /*@__PURE__*/
-  messageDesc(file_v1_todo, 2);
+  messageDesc(file_v1_todo, 5);
 
 /**
  * Update request
@@ -134,7 +262,7 @@ export type UpdateTodoRequest = Message<"todo.v1.UpdateTodoRequest"> & {
  * Use `create(UpdateTodoRequestSchema)` to create a new message.
  */
 export const UpdateTodoRequestSchema: GenMessage<UpdateTodoRequest> = /*@__PURE__*/
-  messageDesc(file_v1_todo, 3);
+  messageDesc(file_v1_todo, 6);
 
 /**
  * Update response
@@ -153,7 +281,7 @@ export type UpdateTodoResponse = Message<"todo.v1.UpdateTodoResponse"> & {
  * Use `create(UpdateTodoResponseSchema)` to create a new message.
  */
 export const UpdateTodoResponseSchema: GenMessage<UpdateTodoResponse> = /*@__PURE__*/
-  messageDesc(file_v1_todo, 4);
+  messageDesc(file_v1_todo, 7);
 
 /**
  * List request with pagination
@@ -177,7 +305,7 @@ export type ListTodosRequest = Message<"todo.v1.ListTodosRequest"> & {
  * Use `create(ListTodosRequestSchema)` to create a new message.
  */
 export const ListTodosRequestSchema: GenMessage<ListTodosRequest> = /*@__PURE__*/
-  messageDesc(file_v1_todo, 5);
+  messageDesc(file_v1_todo, 8);
 
 /**
  * List response
@@ -201,7 +329,7 @@ export type ListTodosResponse = Message<"todo.v1.ListTodosResponse"> & {
  * Use `create(ListTodosResponseSchema)` to create a new message.
  */
 export const ListTodosResponseSchema: GenMessage<ListTodosResponse> = /*@__PURE__*/
-  messageDesc(file_v1_todo, 6);
+  messageDesc(file_v1_todo, 9);
 
 /**
  * @generated from message todo.v1.GetTodoRequest
@@ -218,7 +346,7 @@ export type GetTodoRequest = Message<"todo.v1.GetTodoRequest"> & {
  * Use `create(GetTodoRequestSchema)` to create a new message.
  */
 export const GetTodoRequestSchema: GenMessage<GetTodoRequest> = /*@__PURE__*/
-  messageDesc(file_v1_todo, 7);
+  messageDesc(file_v1_todo, 10);
 
 /**
  * @generated from message todo.v1.GetTodoResponse
@@ -235,7 +363,7 @@ export type GetTodoResponse = Message<"todo.v1.GetTodoResponse"> & {
  * Use `create(GetTodoResponseSchema)` to create a new message.
  */
 export const GetTodoResponseSchema: GenMessage<GetTodoResponse> = /*@__PURE__*/
-  messageDesc(file_v1_todo, 8);
+  messageDesc(file_v1_todo, 11);
 
 /**
  * @generated from message todo.v1.DeleteTodoRequest
@@ -252,7 +380,7 @@ export type DeleteTodoRequest = Message<"todo.v1.DeleteTodoRequest"> & {
  * Use `create(DeleteTodoRequestSchema)` to create a new message.
  */
 export const DeleteTodoRequestSchema: GenMessage<DeleteTodoRequest> = /*@__PURE__*/
-  messageDesc(file_v1_todo, 9);
+  messageDesc(file_v1_todo, 12);
 
 /**
  * @generated from message todo.v1.DeleteTodoResponse
@@ -265,7 +393,7 @@ export type DeleteTodoResponse = Message<"todo.v1.DeleteTodoResponse"> & {
  * Use `create(DeleteTodoResponseSchema)` to create a new message.
  */
 export const DeleteTodoResponseSchema: GenMessage<DeleteTodoResponse> = /*@__PURE__*/
-  messageDesc(file_v1_todo, 10);
+  messageDesc(file_v1_todo, 13);
 
 /**
  * Service definition

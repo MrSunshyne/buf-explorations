@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import type { Todo } from '@buf-explorations/protos/gen/ts/v1/todo_pb';
+import TodoMetadata from './TodoMetadata.vue';
 
 const props = defineProps<{
   todo: Todo;
@@ -98,6 +99,7 @@ const saveEdit = () => {
           >
             {{ todo.description }}
           </span>
+          <TodoMetadata v-if="todo.metadata" :metadata="todo.metadata" />
         </div>
       </div>
       <div class="actions">

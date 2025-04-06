@@ -37,6 +37,12 @@ func (s *TodoService) CreateTodo(ctx context.Context, req *pb.CreateTodoRequest)
 		Completed:   false,
 		CreatedAt:   now,
 		UpdatedAt:   now,
+		Metadata:    req.Metadata, // Copy metadata from request
+	}
+	
+	// Log metadata type if present
+	if req.Metadata != nil {
+		log.Printf("Todo metadata type URL: %s", req.Metadata.TypeUrl)
 	}
 	
 	s.todos[id] = todo
