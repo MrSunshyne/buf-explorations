@@ -1,24 +1,24 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { GeneratedTodo } from '../api';
+import type { Todo } from '../api';
 
 const props = defineProps<{
-  todo: GeneratedTodo;
+  todo: Todo;
   isLoading?: boolean;
 }>();
 
 const emit = defineEmits<{
-  (e: 'update', id: string, updates: { title: string; description: string }): void;
+  (e: 'update', id: string, updates: { name: string; description: string }): void;
   (e: 'delete', id: string): void;
-  (e: 'toggle', todo: GeneratedTodo): void;
+  (e: 'toggle', todo: Todo): void;
 }>();
 
 const isEditing = ref(false);
-const editTitle = ref(props.todo.title);
+const editName = ref(props.todo.name);
 const editDescription = ref(props.todo.description);
 
 const startEditing = () => {
-  editTitle.value = props.todo.title;
+  editName.value = props.todo.name;
   editDescription.value = props.todo.description;
   isEditing.value = true;
 };
@@ -28,10 +28,10 @@ const cancelEditing = () => {
 };
 
 const saveEdit = () => {
-  if (!editTitle.value.trim()) return;
+  if (!editName.value.trim()) return;
   
   emit('update', props.todo.id, {
-    title: editTitle.value,
+    name: editName.value,
     description: editDescription.value,
   });
   
@@ -44,9 +44,9 @@ const saveEdit = () => {
     <div v-if="isEditing" class="edit-form">
       <input
         type="text"
-        v-model="editTitle"
+        v-model="editName"
         required
-        data-testid="edit-title-input"
+        data-testid="edit-name-input"
       />
       <input
         type="text"
@@ -76,7 +76,7 @@ const saveEdit = () => {
         :disabled="isLoading"
         data-testid="todo-checkbox"
       />
-      <span class="todo-title" data-testid="todo-title">{{ todo.title }}</span>
+      <span class="todo-name" data-testid="todo-name">{{ todo.name }}</span>
       <span
         v-if="todo.description"
         class="todo-description"
@@ -117,7 +117,7 @@ const saveEdit = () => {
   background-color: #f5f5f5;
 }
 
-.completed .todo-title,
+.completed .todo-name,
 .completed .todo-description {
   text-decoration: line-through;
   color: #999;
@@ -134,7 +134,7 @@ input[type="checkbox"] {
   cursor: pointer;
 }
 
-.todo-title {
+.todo-name {
   font-weight: bold;
   flex-grow: 1;
   margin-right: 0.5rem;

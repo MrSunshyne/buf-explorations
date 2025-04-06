@@ -1,24 +1,23 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { CreateTodoRequest } from '../api';
 
 const emit = defineEmits<{
-  (e: 'submit', todo: CreateTodoRequest): void;
+  (e: 'submit', todo: { name: string; description: string }): void;
 }>();
 
-const title = ref('');
+const name = ref('');
 const description = ref('');
 
 const onSubmit = () => {
-  if (!title.value.trim()) return;
+  if (!name.value.trim()) return;
   
   emit('submit', {
-    title: title.value,
+    name: name.value,
     description: description.value,
   });
   
   // Reset form
-  title.value = '';
+  name.value = '';
   description.value = '';
 };
 
@@ -31,10 +30,10 @@ defineProps<{
   <form @submit.prevent="onSubmit" class="add-todo-form" data-testid="todo-form">
     <input
       type="text"
-      v-model="title"
-      placeholder="Todo title"
+      v-model="name"
+      placeholder="Todo name"
       required
-      data-testid="todo-title-input"
+      data-testid="todo-name-input"
     />
     <input
       type="text"

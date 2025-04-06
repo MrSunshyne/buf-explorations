@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { todoApi } from './api';
-import type { GeneratedTodo, CreateTodoRequest } from './api';
+import type { Todo, CreateTodoInput, UpdateTodoInput } from './api';
 import TodoForm from './components/TodoForm.vue';
 import TodoItem from './components/TodoItem.vue';
 
-const todos = ref<GeneratedTodo[]>([]);
+const todos = ref<Todo[]>([]);
 const isLoading = ref(false);
 const error = ref<string | null>(null);
 
@@ -22,7 +22,7 @@ const fetchTodos = async () => {
   }
 };
 
-const addTodo = async (newTodoData: CreateTodoRequest) => {
+const addTodo = async (newTodoData: CreateTodoInput) => {
   isLoading.value = true;
   error.value = null;
   try {
@@ -50,11 +50,18 @@ const deleteTodo = async (id: string) => {
   }
 };
 
-const updateTodo = async (id: string, updates: { title: string; description: string }) => {
+const updateTodo = async (id: string, updates: { name: string; description: string }) => {
   isLoading.value = true;
   error.value = null;
   try {
-    const updatedTodo = await todoApi.updateTodo(id, updates);
+    const currentTodo = todos.value.find(t => t.id === id);
+    if (!currentTodo) throw new Error('Todo not found');
+
+    const updatedTodo = await todoApi.updateTodo(id, {
+      name: updates.name,
+      description: updates.description,
+      completed: currentTodo.completed
+    });
     const index = todos.value.findIndex(t => t.id === id);
     if (index !== -1) {
       todos.value[index] = updatedTodo;
@@ -67,11 +74,15 @@ const updateTodo = async (id: string, updates: { title: string; description: str
   }
 };
 
-const toggleTodo = async (todo: GeneratedTodo) => {
+const toggleTodo = async (todo: Todo) => {
   isLoading.value = true;
   error.value = null;
   try {
-    const updatedTodo = await todoApi.updateTodo(todo.id, { completed: !todo.completed });
+    const updatedTodo = await todoApi.updateTodo(todo.id, {
+      name: todo.name,
+      description: todo.description,
+      completed: !todo.completed
+    });
     const index = todos.value.findIndex(t => t.id === todo.id);
     if (index !== -1) {
       todos.value[index] = updatedTodo;
