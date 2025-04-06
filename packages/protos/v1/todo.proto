@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package todo.v1;
 
-option go_package = "github.com/MrSunshyne/buf-explorations/server/gen/todo/v1;todov1";
+option go_package = "github.com/MrSunshyne/buf-explorations/protos/gen/go/todo/v1;todov1";
 
 import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
@@ -10,7 +10,7 @@ import "google/protobuf/timestamp.proto";
 // Todo represents a single todo item
 message Todo {
   string id = 1;
-  string title = 2;
+  string name = 2;
   string description = 3;
   bool completed = 4;
   google.protobuf.Timestamp created_at = 5;
@@ -19,7 +19,7 @@ message Todo {
 
 // Create request
 message CreateTodoRequest {
-  string title = 1;
+  string name = 1;
   string description = 2;
 }
 
@@ -31,7 +31,7 @@ message CreateTodoResponse {
 // Update request
 message UpdateTodoRequest {
   string id = 1;
-  string title = 2;
+  string name = 2;
   string description = 3;
   bool completed = 4;
 }

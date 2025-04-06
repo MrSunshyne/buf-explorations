@@ -13,7 +13,7 @@ import (
 	"google.golang.org/grpc/reflection"
 
 	"github.com/MrSunshyne/buf-explorations/server/internal/service"
-	pb "github.com/MrSunshyne/buf-explorations/protos/gen/go/protos/v1"
+	pb "github.com/MrSunshyne/buf-explorations/protos/gen/go/v1"
 )
 
 func main() {

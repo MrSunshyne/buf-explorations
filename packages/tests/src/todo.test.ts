@@ -13,7 +13,7 @@ describe('Todo Service CRUD Operations', () => {
     try {
       const todos = await todoApi.listTodos();
       for (const todo of todos) {
-        if (todo.title.startsWith('Test Todo')) {
+        if (todo.name.startsWith('Test Todo')) {
           await todoApi.deleteTodo(todo.id);
         }
       }
@@ -39,12 +39,12 @@ describe('Todo Service CRUD Operations', () => {
 
   it('should create a new todo', async () => {
     const createData = create(CreateTodoRequestSchema, {
-      title: 'Test Todo Create',
+      name: 'Test Todo Create',
       description: 'Description for create test',
     });
     const todo = await todoApi.createTodo(createData);
     expect(todo.id).toBeDefined();
-    expect(todo.title).toBe(createData.title);
+    expect(todo.name).toBe(createData.name);
     expect(todo.description).toBe(createData.description);
     expect(todo.completed).toBe(false);
     expect(todo.createdAt).toBeDefined();
@@ -54,7 +54,7 @@ describe('Todo Service CRUD Operations', () => {
 
   it('should get a todo by id', async () => {
     const createData = create(CreateTodoRequestSchema, {
-      title: 'Test Todo Get',
+      name: 'Test Todo Get',
       description: 'Description for get test',
     });
     const createdTodo = await todoApi.createTodo(createData);
@@ -66,11 +66,11 @@ describe('Todo Service CRUD Operations', () => {
 
   it('should list all todos', async () => {
     // Create a couple of todos to ensure the list is not empty
-    const createData1 = create(CreateTodoRequestSchema, { title: 'Test Todo List 1', description: 'Desc 1' });
+    const createData1 = create(CreateTodoRequestSchema, { name: 'Test Todo List 1', description: 'Desc 1' });
     const todo1 = await todoApi.createTodo(createData1);
     createdTodos.push(todo1.id);
 
-    const createData2 = create(CreateTodoRequestSchema, { title: 'Test Todo List 2', description: 'Desc 2' });
+    const createData2 = create(CreateTodoRequestSchema, { name: 'Test Todo List 2', description: 'Desc 2' });
     const todo2 = await todoApi.createTodo(createData2);
     createdTodos.push(todo2.id);
 
@@ -83,7 +83,7 @@ describe('Todo Service CRUD Operations', () => {
 
   it('should update a todo', async () => {
     const createData = create(CreateTodoRequestSchema, {
-      title: 'Test Todo Update Original',
+      name: 'Test Todo Update Original',
       description: 'Original Description',
     });
     const createdTodo = await todoApi.createTodo(createData);
@@ -91,14 +91,14 @@ describe('Todo Service CRUD Operations', () => {
 
     const updateData = create(UpdateTodoRequestSchema, {
       id: createdTodo.id,
-      title: 'Test Todo Update Updated',
+      name: 'Test Todo Update Updated',
       description: 'Updated Description',
       completed: true,
     });
     const updatedTodo = await todoApi.updateTodo(createdTodo.id, updateData);
 
     expect(updatedTodo.id).toBe(createdTodo.id);
-    expect(updatedTodo.title).toBe(updateData.title);
+    expect(updatedTodo.name).toBe(updateData.name);
     expect(updatedTodo.description).toBe(updateData.description);
     expect(updatedTodo.completed).toBe(updateData.completed);
     // Timestamps should ideally be different, but exact check is tricky
@@ -108,7 +108,7 @@ describe('Todo Service CRUD Operations', () => {
   it('should delete a todo', async () => {
     // Create a todo to delete
     const createData = create(CreateTodoRequestSchema, {
-      title: 'Test Todo Delete',
+      name: 'Test Todo Delete',
       description: 'This todo will be deleted',
       // completed is not part of CreateTodoRequest
     });

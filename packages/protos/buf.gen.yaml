@@ -1,6 +1,17 @@
 version: v2
 clean: true
 plugins:
+  # Go
+  - remote: buf.build/protocolbuffers/go:v1.32.0
+    out: gen/go
+    opt: paths=source_relative
+  - remote: buf.build/grpc/go:v1.3.0
+    out: gen/go
+    opt: paths=source_relative
+  # REST Gateway
+  - remote: buf.build/grpc-ecosystem/gateway:v2.19.1
+    out: gen/go
+    opt: paths=source_relative
   # TypeScript
   - remote: buf.build/bufbuild/es:v2.2.5
     out: gen/ts

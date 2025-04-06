@@ -13,7 +13,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file v1/todo.proto.
  */
 export const file_v1_todo: GenFile = /*@__PURE__*/
-  fileDesc("Cg12MS90b2RvLnByb3RvEgd0b2RvLnYxIqkBCgRUb2RvEgoKAmlkGAEgASgJEg0KBXRpdGxlGAIgASgJEhMKC2Rlc2NyaXB0aW9uGAMgASgJEhEKCWNvbXBsZXRlZBgEIAEoCBIuCgpjcmVhdGVkX2F0GAUgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIuCgp1cGRhdGVkX2F0GAYgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCI3ChFDcmVhdGVUb2RvUmVxdWVzdBINCgV0aXRsZRgBIAEoCRITCgtkZXNjcmlwdGlvbhgCIAEoCSIxChJDcmVhdGVUb2RvUmVzcG9uc2USGwoEdG9kbxgBIAEoCzINLnRvZG8udjEuVG9kbyJWChFVcGRhdGVUb2RvUmVxdWVzdBIKCgJpZBgBIAEoCRINCgV0aXRsZRgCIAEoCRITCgtkZXNjcmlwdGlvbhgDIAEoCRIRCgljb21wbGV0ZWQYBCABKAgiMQoSVXBkYXRlVG9kb1Jlc3BvbnNlEhsKBHRvZG8YASABKAsyDS50b2RvLnYxLlRvZG8iOQoQTGlzdFRvZG9zUmVxdWVzdBIRCglwYWdlX3NpemUYASABKAUSEgoKcGFnZV90b2tlbhgCIAEoCSJKChFMaXN0VG9kb3NSZXNwb25zZRIcCgV0b2RvcxgBIAMoCzINLnRvZG8udjEuVG9kbxIXCg9uZXh0X3BhZ2VfdG9rZW4YAiABKAkiHAoOR2V0VG9kb1JlcXVlc3QSCgoCaWQYASABKAkiLgoPR2V0VG9kb1Jlc3BvbnNlEhsKBHRvZG8YASABKAsyDS50b2RvLnYxLlRvZG8iHwoRRGVsZXRlVG9kb1JlcXVlc3QSCgoCaWQYASABKAkiFAoSRGVsZXRlVG9kb1Jlc3BvbnNlMtgDCgtUb2RvU2VydmljZRJbCgpDcmVhdGVUb2RvEhoudG9kby52MS5DcmVhdGVUb2RvUmVxdWVzdBobLnRvZG8udjEuQ3JlYXRlVG9kb1Jlc3BvbnNlIhSC0+STAg46ASoiCS92MS90b2RvcxJUCgdHZXRUb2RvEhcudG9kby52MS5HZXRUb2RvUmVxdWVzdBoYLnRvZG8udjEuR2V0VG9kb1Jlc3BvbnNlIhaC0+STAhASDi92MS90b2Rvcy97aWR9ElUKCUxpc3RUb2RvcxIZLnRvZG8udjEuTGlzdFRvZG9zUmVxdWVzdBoaLnRvZG8udjEuTGlzdFRvZG9zUmVzcG9uc2UiEYLT5JMCCxIJL3YxL3RvZG9zEmAKClVwZGF0ZVRvZG8SGi50b2RvLnYxLlVwZGF0ZVRvZG9SZXF1ZXN0GhsudG9kby52MS5VcGRhdGVUb2RvUmVzcG9uc2UiGYLT5JMCEzoBKjIOL3YxL3RvZG9zL3tpZH0SXQoKRGVsZXRlVG9kbxIaLnRvZG8udjEuRGVsZXRlVG9kb1JlcXVlc3QaGy50b2RvLnYxLkRlbGV0ZVRvZG9SZXNwb25zZSIWgtPkkwIQKg4vdjEvdG9kb3Mve2lkfUJCWkBnaXRodWIuY29tL01yU3Vuc2h5bmUvYnVmLWV4cGxvcmF0aW9ucy9zZXJ2ZXIvZ2VuL3RvZG8vdjE7dG9kb3YxYgZwcm90bzM", [file_google_api_annotations, file_google_protobuf_timestamp]);
+  fileDesc("Cg12MS90b2RvLnByb3RvEgd0b2RvLnYxIqgBCgRUb2RvEgoKAmlkGAEgASgJEgwKBG5hbWUYAiABKAkSEwoLZGVzY3JpcHRpb24YAyABKAkSEQoJY29tcGxldGVkGAQgASgIEi4KCmNyZWF0ZWRfYXQYBSABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEi4KCnVwZGF0ZWRfYXQYBiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wIjYKEUNyZWF0ZVRvZG9SZXF1ZXN0EgwKBG5hbWUYASABKAkSEwoLZGVzY3JpcHRpb24YAiABKAkiMQoSQ3JlYXRlVG9kb1Jlc3BvbnNlEhsKBHRvZG8YASABKAsyDS50b2RvLnYxLlRvZG8iVQoRVXBkYXRlVG9kb1JlcXVlc3QSCgoCaWQYASABKAkSDAoEbmFtZRgCIAEoCRITCgtkZXNjcmlwdGlvbhgDIAEoCRIRCgljb21wbGV0ZWQYBCABKAgiMQoSVXBkYXRlVG9kb1Jlc3BvbnNlEhsKBHRvZG8YASABKAsyDS50b2RvLnYxLlRvZG8iOQoQTGlzdFRvZG9zUmVxdWVzdBIRCglwYWdlX3NpemUYASABKAUSEgoKcGFnZV90b2tlbhgCIAEoCSJKChFMaXN0VG9kb3NSZXNwb25zZRIcCgV0b2RvcxgBIAMoCzINLnRvZG8udjEuVG9kbxIXCg9uZXh0X3BhZ2VfdG9rZW4YAiABKAkiHAoOR2V0VG9kb1JlcXVlc3QSCgoCaWQYASABKAkiLgoPR2V0VG9kb1Jlc3BvbnNlEhsKBHRvZG8YASABKAsyDS50b2RvLnYxLlRvZG8iHwoRRGVsZXRlVG9kb1JlcXVlc3QSCgoCaWQYASABKAkiFAoSRGVsZXRlVG9kb1Jlc3BvbnNlMtgDCgtUb2RvU2VydmljZRJbCgpDcmVhdGVUb2RvEhoudG9kby52MS5DcmVhdGVUb2RvUmVxdWVzdBobLnRvZG8udjEuQ3JlYXRlVG9kb1Jlc3BvbnNlIhSC0+STAg46ASoiCS92MS90b2RvcxJUCgdHZXRUb2RvEhcudG9kby52MS5HZXRUb2RvUmVxdWVzdBoYLnRvZG8udjEuR2V0VG9kb1Jlc3BvbnNlIhaC0+STAhASDi92MS90b2Rvcy97aWR9ElUKCUxpc3RUb2RvcxIZLnRvZG8udjEuTGlzdFRvZG9zUmVxdWVzdBoaLnRvZG8udjEuTGlzdFRvZG9zUmVzcG9uc2UiEYLT5JMCCxIJL3YxL3RvZG9zEmAKClVwZGF0ZVRvZG8SGi50b2RvLnYxLlVwZGF0ZVRvZG9SZXF1ZXN0GhsudG9kby52MS5VcGRhdGVUb2RvUmVzcG9uc2UiGYLT5JMCEzoBKjIOL3YxL3RvZG9zL3tpZH0SXQoKRGVsZXRlVG9kbxIaLnRvZG8udjEuRGVsZXRlVG9kb1JlcXVlc3QaGy50b2RvLnYxLkRlbGV0ZVRvZG9SZXNwb25zZSIWgtPkkwIQKg4vdjEvdG9kb3Mve2lkfUJFWkNnaXRodWIuY29tL01yU3Vuc2h5bmUvYnVmLWV4cGxvcmF0aW9ucy9wcm90b3MvZ2VuL2dvL3RvZG8vdjE7dG9kb3YxYgZwcm90bzM", [file_google_api_annotations, file_google_protobuf_timestamp]);
 
 /**
  * Todo represents a single todo item
@@ -27,9 +27,9 @@ export type Todo = Message<"todo.v1.Todo"> & {
   id: string;
 
   /**
-   * @generated from field: string title = 2;
+   * @generated from field: string name = 2;
    */
-  title: string;
+  name: string;
 
   /**
    * @generated from field: string description = 3;
@@ -66,9 +66,9 @@ export const TodoSchema: GenMessage<Todo> = /*@__PURE__*/
  */
 export type CreateTodoRequest = Message<"todo.v1.CreateTodoRequest"> & {
   /**
-   * @generated from field: string title = 1;
+   * @generated from field: string name = 1;
    */
-  title: string;
+  name: string;
 
   /**
    * @generated from field: string description = 2;
@@ -114,9 +114,9 @@ export type UpdateTodoRequest = Message<"todo.v1.UpdateTodoRequest"> & {
   id: string;
 
   /**
-   * @generated from field: string title = 2;
+   * @generated from field: string name = 2;
    */
-  title: string;
+  name: string;
 
   /**
    * @generated from field: string description = 3;

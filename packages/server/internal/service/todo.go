@@ -5,7 +5,7 @@ import (
 	"log"
 
 	"github.com/google/uuid"
-	pb "github.com/MrSunshyne/buf-explorations/protos/gen/go/protos/v1"
+	pb "github.com/MrSunshyne/buf-explorations/protos/gen/go/v1"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/timestamppb"
@@ -32,7 +32,7 @@ func (s *TodoService) CreateTodo(ctx context.Context, req *pb.CreateTodoRequest)
 	
 	todo := &pb.Todo{
 		Id:          id,
-		Title:       req.Title,
+		Name:        req.Name,
 		Description: req.Description,
 		Completed:   false,
 		CreatedAt:   now,
@@ -102,7 +102,7 @@ func (s *TodoService) UpdateTodo(ctx context.Context, req *pb.UpdateTodoRequest)
 		return nil, status.Errorf(codes.NotFound, "todo not found: %s", req.Id)
 	}
 	
-	todo.Title = req.Title
+	todo.Name = req.Name
 	todo.Description = req.Description
 	todo.Completed = req.Completed
 	todo.UpdatedAt = timestamppb.Now()
