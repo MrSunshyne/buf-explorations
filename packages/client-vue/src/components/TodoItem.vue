@@ -125,55 +125,44 @@ const saveEdit = () => {
 <style scoped>
 .todo-item {
   position: relative;
-  margin: 0.75rem 0;
-  padding: 1rem 1.25rem;
-  background: rgba(255,255,255,0.8);
-  border-radius: 10px;
-  box-shadow:
-    0 2px 4px rgba(0,0,0,0.05),
-    0 1px 2px rgba(0,0,0,0.05);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border-left: 3px solid #4CAF50;
-  backdrop-filter: blur(5px);
+  padding: 0.75rem 0;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(101,67,33,0.1);
+}
+
+.todo-item:last-child {
+  border-bottom: none;
 }
 
 .todo-item:hover {
-  transform: translateX(4px);
-  background: rgba(255,255,255,0.9);
-  box-shadow:
-    0 4px 8px rgba(0,0,0,0.08),
-    0 2px 4px rgba(0,0,0,0.08);
+  background: rgba(101,67,33,0.03);
 }
 
 .todo-item.completed {
-  border-left-color: #9e9e9e;
-  background: rgba(255,255,255,0.6);
+  color: rgba(44,24,16,0.5);
+}
+
+.todo-item.completed .todo-name {
+  text-decoration: line-through;
+  text-decoration-color: rgba(44,24,16,0.3);
+  text-decoration-thickness: 1px;
 }
 
 .view-mode {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   gap: 1rem;
-}
-
-.todo-content {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex: 1;
-  min-width: 0;
-}
-
-.checkbox-wrapper {
-  position: relative;
-  display: inline-block;
-  width: 22px;
-  height: 22px;
-  flex-shrink: 0;
+  padding: 0 0.5rem;
 }
 
 .checkbox {
+  position: relative;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.25rem;
+}
+
+.checkbox input[type="checkbox"] {
   position: absolute;
   opacity: 0;
   cursor: pointer;
@@ -185,254 +174,162 @@ const saveEdit = () => {
   position: absolute;
   top: 0;
   left: 0;
-  height: 22px;
-  width: 22px;
-  background: rgba(255,255,255,0.9);
-  border: 2px solid #4CAF50;
-  border-radius: 6px;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow:
-    inset 0 1px 2px rgba(0,0,0,0.05),
-    0 1px 0 rgba(255,255,255,0.5);
+  height: 1.25rem;
+  width: 1.25rem;
+  background: rgba(255,255,255,0.5);
+  border: 1px solid rgba(101,67,33,0.3);
+  border-radius: 3px;
+  transition: all 0.3s ease;
 }
 
-.checkbox:checked ~ .checkmark {
-  background: #4CAF50;
-  border-color: #4CAF50;
-  box-shadow:
-    inset 0 1px 2px rgba(0,0,0,0.1),
-    0 1px 0 rgba(255,255,255,0.2);
+.checkbox:hover input ~ .checkmark {
+  background: rgba(255,255,255,0.7);
+}
+
+.checkbox input:checked ~ .checkmark {
+  background: rgba(101,67,33,0.1);
+  border-color: rgba(101,67,33,0.4);
 }
 
 .checkmark:after {
-  content: '';
+  content: "";
   position: absolute;
   display: none;
-  left: 7px;
-  top: 3px;
-  width: 4px;
-  height: 9px;
-  border: solid white;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid rgba(101,67,33,0.8);
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
 
-.checkbox:checked ~ .checkmark:after {
+.checkbox input:checked ~ .checkmark:after {
   display: block;
-  animation: checkmark 0.2s ease-in-out;
 }
 
-@keyframes checkmark {
-  0% { transform: rotate(45deg) scale(0); }
-  100% { transform: rotate(45deg) scale(1); }
-}
-
-.todo-text {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
+.todo-content {
   flex: 1;
   min-width: 0;
+  font-family: 'Palatino', serif;
 }
 
 .todo-name {
+  margin: 0;
   font-size: 1.1rem;
-  font-weight: 600;
   color: var(--ink-color);
-  margin: 0;
-  font-family: system-ui, -apple-system, sans-serif;
-  transition: all 0.3s ease;
-}
-
-.completed .todo-name {
-  text-decoration: line-through;
-  color: #9e9e9e;
-}
-
-.todo-description {
-  font-size: 0.9rem;
-  color: #666;
-  margin: 0;
-  font-style: italic;
+  font-weight: 600;
   line-height: 1.4;
   transition: all 0.3s ease;
 }
 
-.completed .todo-description {
-  color: #999;
+.todo-description {
+  margin: 0.25rem 0 0;
+  font-size: 0.95rem;
+  color: rgba(44,24,16,0.7);
+  line-height: 1.5;
+  font-style: italic;
 }
 
 .actions {
   display: flex;
   gap: 0.5rem;
-  flex-shrink: 0;
+  margin-left: auto;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.actions button {
-  padding: 0.5rem 1rem;
-  font-size: 0.9rem;
-  font-weight: 600;
+.todo-item:hover .actions {
+  opacity: 1;
+}
+
+.action-btn {
+  background: none;
   border: none;
-  border-radius: 6px;
+  padding: 0.25rem;
+  color: rgba(101,67,33,0.6);
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.actions button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 50%;
-  background: linear-gradient(to bottom, 
-    rgba(255,255,255,0.2) 0%,
-    transparent 100%
-  );
-  border-radius: 6px 6px 0 0;
-}
-
-.edit-button {
-  color: #fff;
-  background: linear-gradient(to bottom, #42a5f5 0%, #2196F3 100%);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.2),
-    0 1px 2px rgba(33,150,243,0.2);
-  text-shadow: 0 -1px 0 rgba(0,0,0,0.1);
-}
-
-.edit-button:hover {
-  background: linear-gradient(to bottom, #64b5f6 0%, #2196F3 100%);
-  transform: translateY(-1px);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.2),
-    0 4px 8px rgba(33,150,243,0.3);
-}
-
-.delete-button {
-  color: #fff;
-  background: linear-gradient(to bottom, #ef5350 0%, #e53935 100%);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.2),
-    0 1px 2px rgba(244,67,54,0.2);
-  text-shadow: 0 -1px 0 rgba(0,0,0,0.1);
-}
-
-.delete-button:hover {
-  background: linear-gradient(to bottom, #ef5350 0%, #d32f2f 100%);
-  transform: translateY(-1px);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.2),
-    0 4px 8px rgba(244,67,54,0.3);
-}
-
-.actions button:active {
-  transform: translateY(1px);
-  box-shadow:
-    inset 0 2px 4px rgba(0,0,0,0.1),
-    0 1px 2px rgba(0,0,0,0.05);
-}
-
-.actions button:disabled {
-  background: linear-gradient(to bottom, #e0e0e0 0%, #d5d5d5 100%);
-  cursor: not-allowed;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.2),
-    0 1px 2px rgba(0,0,0,0.05);
-  opacity: 0.7;
-  transform: none;
-}
-
-.edit-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  width: 100%;
-}
-
-.edit-fields {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.edit-form input[type="text"] {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  font-size: 1rem;
-  color: var(--ink-color);
-  border: 2px solid transparent;
-  border-radius: 8px;
-  background: rgba(255,255,255,0.9);
-  box-shadow:
-    inset 0 2px 4px rgba(0,0,0,0.05),
-    0 1px 0 rgba(255,255,255,0.5);
   transition: all 0.3s ease;
-  font-family: system-ui, -apple-system, sans-serif;
+  border-radius: 4px;
 }
 
-.edit-form input[type="text"]:focus {
+.action-btn:hover {
+  color: rgba(101,67,33,0.9);
+  background: rgba(101,67,33,0.1);
+}
+
+.action-btn:active {
+  transform: translateY(1px);
+}
+
+.delete-btn {
+  color: rgba(220,53,69,0.6);
+}
+
+.delete-btn:hover {
+  color: rgba(220,53,69,0.9);
+  background: rgba(220,53,69,0.1);
+}
+
+.edit-mode {
+  padding: 1rem;
+  background: rgba(255,255,255,0.5);
+  border-radius: 4px;
+  box-shadow: 
+    inset 0 1px 3px rgba(0,0,0,0.1),
+    0 1px 2px rgba(255,255,255,0.5);
+}
+
+.edit-mode input[type="text"] {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid rgba(101,67,33,0.2);
+  border-radius: 4px;
+  background: rgba(255,255,255,0.8);
+  color: var(--ink-color);
+  font-family: 'Palatino', serif;
+  font-size: 1rem;
+}
+
+.edit-mode input[type="text"]:focus {
   outline: none;
-  border-color: #2196F3;
-  background: #ffffff;
-  box-shadow:
-    inset 0 2px 4px rgba(0,0,0,0.02),
-    0 0 0 3px rgba(33,150,243,0.1);
+  border-color: rgba(101,67,33,0.4);
+  box-shadow: 0 0 0 2px rgba(101,67,33,0.1);
 }
 
 .edit-actions {
   display: flex;
-  justify-content: flex-end;
   gap: 0.5rem;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
 }
 
-.save-button {
-  color: #fff;
-  background: linear-gradient(to bottom, #66bb6a 0%, #4CAF50 100%);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.2),
-    0 1px 2px rgba(76,175,80,0.2);
-  text-shadow: 0 -1px 0 rgba(0,0,0,0.1);
-  border: none;
-  border-radius: 6px;
+.edit-actions button {
   padding: 0.5rem 1rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.save-button:hover {
-  background: linear-gradient(to bottom, #75c378 0%, #43a047 100%);
-  transform: translateY(-1px);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.2),
-    0 4px 8px rgba(76,175,80,0.3);
-}
-
-.cancel-button {
-  color: #fff;
-  background: linear-gradient(to bottom, #ef5350 0%, #e53935 100%);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.2),
-    0 1px 2px rgba(244,67,54,0.2);
-  text-shadow: 0 -1px 0 rgba(0,0,0,0.1);
   border: none;
-  border-radius: 6px;
-  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-family: 'Palatino', serif;
   font-size: 0.9rem;
-  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
 
-.cancel-button:hover {
-  background: linear-gradient(to bottom, #ef5350 0%, #d32f2f 100%);
-  transform: translateY(-1px);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.2),
-    0 4px 8px rgba(244,67,54,0.3);
+.save-btn {
+  background: rgba(101,67,33,0.1);
+  color: rgba(101,67,33,0.9);
+}
+
+.save-btn:hover {
+  background: rgba(101,67,33,0.2);
+}
+
+.cancel-btn {
+  background: rgba(108,117,125,0.1);
+  color: rgba(108,117,125,0.9);
+}
+
+.cancel-btn:hover {
+  background: rgba(108,117,125,0.2);
 }
 </style> 

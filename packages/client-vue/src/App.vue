@@ -170,19 +170,20 @@ onMounted(fetchTodos);
 </template>
 
 <style>
-/* Global styles for skeuomorphic design */
+/* Global styles */
 :root {
-  --paper-color: #ffffff;
-  --ink-color: #2c3e50;
+  --stone-color: #5a5a5a;
+  --stone-texture: #4a4a4a;
+  --parchment-color: #f4e4bc;
+  --ink-color: #2c1810;
   --shadow-color: rgba(0, 0, 0, 0.2);
   --page-width: 500px;
-  --margin-color: #c3d4e8;
 }
 
 body {
-  background: #e6e6e6;
+  background: #2c2c2c;
   background-image: 
-    radial-gradient(circle at center, #f5f5f5 0%, #e6e6e6 100%);
+    radial-gradient(circle at center, #353535 0%, #2c2c2c 100%);
   min-height: 100vh;
   margin: 0;
   padding: 0;
@@ -199,17 +200,16 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.15));
 }
 
 h1 {
   text-align: center;
-  color: var(--ink-color);
+  color: #d4af37;
   font-family: 'Palatino', serif;
   font-size: 2.5rem;
   text-shadow: 
-    2px 2px 2px var(--shadow-color),
-    0 8px 16px rgba(0,0,0,0.1);
+    0 2px 4px rgba(0,0,0,0.3),
+    0 8px 16px rgba(0,0,0,0.2);
   margin: 1rem 0 2rem;
   position: relative;
   letter-spacing: 0.05em;
@@ -223,109 +223,154 @@ h1::after {
   transform: translateX(-50%);
   width: 200px;
   height: 3px;
-  background: linear-gradient(90deg, transparent, var(--ink-color) 20%, var(--ink-color) 80%, transparent);
+  background: linear-gradient(90deg, transparent, #d4af37 20%, #d4af37 80%, transparent);
 }
 
 .book-layout {
   display: flex;
-  gap: 0;
+  gap: 2rem;
   justify-content: center;
-  perspective: 2000px;
   flex: 1;
   min-height: 0;
-  transform-style: preserve-3d;
-  transform: rotateX(2deg);
   margin: 0 2rem;
+  position: relative;
 }
 
-.page {
+/* Stone Tablet Styles */
+.left-page {
   width: var(--page-width);
-  background: var(--paper-color);
+  background: var(--stone-color);
   position: relative;
   padding: 2rem;
   display: flex;
   flex-direction: column;
-  transform-style: preserve-3d;
+  border-radius: 12px;
+  box-shadow: 
+    inset 0 2px 10px rgba(0,0,0,0.5),
+    0 5px 15px rgba(0,0,0,0.5);
   overflow: hidden;
 }
 
-.page::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 40px;
-  z-index: 2;
-}
-
-.page::after {
+.left-page::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(to bottom, 
+  background-image: 
+    repeating-linear-gradient(
+      45deg,
+      var(--stone-texture),
+      var(--stone-texture) 2px,
+      transparent 2px,
+      transparent 8px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      var(--stone-texture),
+      var(--stone-texture) 2px,
+      transparent 2px,
+      transparent 8px
+    );
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.left-page::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
     rgba(255,255,255,0.1) 0%,
-    transparent 10%,
-    transparent 90%,
-    rgba(0,0,0,0.05) 100%
+    transparent 50%,
+    rgba(0,0,0,0.1) 100%
   );
   pointer-events: none;
 }
 
-.left-page {
-  border-radius: 12px 2px 2px 12px;
-  box-shadow: 
-    inset 15px 0 25px -15px rgba(0,0,0,0.2),
-    inset -5px 0 10px -5px rgba(0,0,0,0.1),
-    5px 0 15px -5px rgba(0,0,0,0.1);
-  clip-path: inset(0px -15px 0px 0px);
-}
-
-.left-page::before {
-  right: 0;
-  background: linear-gradient(to right, transparent, rgba(0,0,0,0.1));
-}
-
+/* Manuscript Styles */
 .right-page {
-  border-radius: 2px 12px 12px 2px;
+  width: var(--page-width);
+  background: var(--parchment-color);
+  position: relative;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 2px;
   box-shadow: 
-    inset -15px 0 25px -15px rgba(0,0,0,0.2),
-    inset 5px 0 10px -5px rgba(0,0,0,0.1),
-    -5px 0 15px -5px rgba(0,0,0,0.1);
-  clip-path: inset(0px 0px 0px -15px);
+    inset 0 0 10px rgba(0,0,0,0.2),
+    0 5px 15px rgba(0,0,0,0.3);
+  overflow: hidden;
+  transform: rotate(0.5deg);
 }
 
 .right-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
   left: 0;
-  background: linear-gradient(to left, transparent, rgba(0,0,0,0.1));
+  right: 0;
+  bottom: 0;
+  background-image: 
+    url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E"),
+    linear-gradient(
+      to right,
+      rgba(0,0,0,0.05) 0px,
+      transparent 1px
+    );
+  background-size: 100px 100px, 10px 100%;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.right-page::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to right,
+    rgba(0,0,0,0.1) 0%,
+    transparent 20%,
+    transparent 80%,
+    rgba(0,0,0,0.1) 100%
+  );
+  pointer-events: none;
 }
 
 .page-content {
   flex: 1;
-  background-image: 
-    linear-gradient(90deg, transparent 39px, var(--margin-color) 39px, var(--margin-color) 41px, transparent 41px),
-    linear-gradient(var(--margin-color) 1px, transparent 1px);
-  background-size: 100% 1.5em;
-  border: 1px solid rgba(0,0,0,0.05);
-  border-radius: 8px;
-  padding: 1.5rem 1.5rem 1.5rem calc(1.5rem + 40px);
-  height: 100%;
   position: relative;
-  background-color: rgba(255,255,255,0.5);
-  backdrop-filter: blur(5px);
-  box-shadow: 
-    inset 0 2px 4px rgba(0,0,0,0.02),
-    0 1px 2px rgba(255,255,255,0.5);
   display: flex;
   flex-direction: column;
   min-height: 0;
 }
 
+.left-page .page-content {
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.1),
+    transparent 10%,
+    transparent 90%,
+    rgba(0,0,0,0.1)
+  );
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
 .right-page .page-content {
-  display: flex;
-  flex-direction: column;
+  background-image: 
+    linear-gradient(#ad8b73 1px, transparent 1px);
+  background-size: 100% 2rem;
+  padding: 0 1rem;
+  line-height: 2rem;
 }
 
 .todos-wrapper {
@@ -341,28 +386,34 @@ h1::after {
 }
 
 .todos-wrapper::-webkit-scrollbar-track {
-  background: rgba(0,0,0,0.03);
+  background: rgba(0,0,0,0.1);
   border-radius: 3px;
 }
 
 .todos-wrapper::-webkit-scrollbar-thumb {
-  background: rgba(0,0,0,0.1);
+  background: rgba(101,67,33,0.3);
   border-radius: 3px;
   transition: background 0.3s ease;
 }
 
 .todos-wrapper::-webkit-scrollbar-thumb:hover {
-  background: rgba(0,0,0,0.2);
+  background: rgba(101,67,33,0.5);
 }
 
 h2 {
-  color: var(--ink-color);
+  color: rgba(255,255,255,0.9);
   font-family: 'Palatino', serif;
   font-size: 1.75rem;
   margin: 0 0 1.5rem;
   text-align: center;
   position: relative;
-  text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.right-page h2 {
+  color: var(--ink-color);
+  text-shadow: none;
+  font-style: italic;
 }
 
 h2::after {
@@ -373,50 +424,48 @@ h2::after {
   transform: translateX(-50%);
   width: 100px;
   height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5) 30%, rgba(255,255,255,0.5) 70%, transparent);
+}
+
+.right-page h2::after {
   background: linear-gradient(90deg, transparent, var(--ink-color) 30%, var(--ink-color) 70%, transparent);
+  opacity: 0.3;
 }
 
 .error-message {
-  background: #fff0f0;
-  color: #d32f2f;
+  background: rgba(255,82,82,0.1);
+  color: #ff5252;
   padding: 1rem;
   border-radius: 8px;
   border: 1px solid rgba(255,82,82,0.2);
   box-shadow: 
-    inset 0 2px 4px rgba(0,0,0,0.05),
-    0 1px 2px rgba(0,0,0,0.05);
+    inset 0 2px 4px rgba(0,0,0,0.1),
+    0 1px 2px rgba(0,0,0,0.1);
   margin-bottom: 1.5rem;
   text-align: center;
   font-family: system-ui, -apple-system, sans-serif;
-  backdrop-filter: blur(5px);
 }
 
 .loading-message {
   text-align: center;
-  color: #666;
+  color: rgba(255,255,255,0.6);
   padding: 2rem 0;
   font-style: italic;
-  text-shadow: 1px 1px 1px rgba(255,255,255,0.8);
   animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
-  0% { opacity: 0.6; }
-  50% { opacity: 1; }
-  100% { opacity: 0.6; }
+  0% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+  100% { opacity: 0.4; }
 }
 
 [data-testid="empty-message"] {
   text-align: center;
-  color: #666;
+  color: rgba(44,24,16,0.6);
   font-style: italic;
   padding: 2rem;
-  background: rgba(0,0,0,0.02);
-  border-radius: 8px;
   margin: 1rem 0;
-  text-shadow: 1px 1px 1px rgba(255,255,255,0.8);
-  border: 1px solid rgba(0,0,0,0.05);
-  backdrop-filter: blur(5px);
 }
 
 .todo-list {
