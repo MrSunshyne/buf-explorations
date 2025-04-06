@@ -2,26 +2,26 @@ version: v1
 plugins:
   # Go
   - plugin: go
-    out: protos/gen/go
+    out: packages/protos/gen/go
     opt: paths=source_relative
   - plugin: go-grpc
-    out: protos/gen/go
+    out: packages/protos/gen/go
     opt: paths=source_relative
   # REST Gateway
   - plugin: grpc-gateway
-    out: protos/gen/go
+    out: packages/protos/gen/go
     opt: paths=source_relative
   # OpenAPI
   - plugin: openapiv2
-    out: server/api/swagger
+    out: packages/server/api/swagger
   # TypeScript
   - plugin: es
-    out: protos/gen/ts
+    out: packages/protos/gen/ts
     opt: 
       - target=ts
       - import_extension=none
   - plugin: connect-es
-    out: protos/gen/ts
+    out: packages/protos/gen/ts
     opt: 
       - target=ts
       - import_extension=none 

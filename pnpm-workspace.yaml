@@ -1,6 +1,2 @@
 packages:
-  - 'protos'
-  - 'server'
-  - 'tests'
-  - 'client-ts' 
-  - 'client-vue'
+  - 'packages/*'
