@@ -1,6 +1,6 @@
 import { createGrpcTransport } from "@connectrpc/connect-node";
 import { createClient } from "@connectrpc/connect";
-import { TodoService } from "../../protos/gen/ts/v1/todo_pb";
+import { TodoService } from "@buf-explorations/protos/gen/ts/v1/todo_pb";
 
 // Create a transport with debug logging
 const transport = createGrpcTransport({

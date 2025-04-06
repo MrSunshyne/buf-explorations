@@ -1,7 +1,7 @@
 import { createClient } from "@connectrpc/connect";
 import { createGrpcWebTransport } from "@connectrpc/connect-web";
-import { TodoService } from "../../protos/gen/ts/v1/todo_pb";
-import type { CreateTodoRequest, UpdateTodoRequest, Todo } from "../../protos/gen/ts/v1/todo_pb";
+import { TodoService } from "@buf-explorations/protos/gen/ts/v1/todo_pb";
+import type { CreateTodoRequest, UpdateTodoRequest, Todo } from "@buf-explorations/protos/gen/ts/v1/todo_pb";
 
 const transport = createGrpcWebTransport({
   baseUrl: "http://localhost:9000",
@@ -14,18 +14,20 @@ const client = createClient(TodoService, transport);
 export const todoApi = {
   async createTodo(data: CreateTodoRequest) {
     const response = await client.createTodo(data);
-    if (!response.todo) {
+    const todo = (response as unknown as { todo: Todo }).todo;
+    if (!todo) {
       throw new Error("createTodo response did not contain a todo object.");
     }
-    return response.todo;
+    return todo;
   },
 
   async getTodo(id: string) {
     const response = await client.getTodo({ id });
-    if (!response.todo) {
+    const todo = (response as unknown as { todo: Todo }).todo;
+    if (!todo) {
       throw new Error("getTodo response did not contain a todo object.");
     }
-    return response.todo;
+    return todo;
   },
 
   async listTodos() {
@@ -33,7 +35,7 @@ export const todoApi = {
       pageSize: 100,
       pageToken: "",
     });
-    return response.todos;
+    return (response as unknown as { todos: Todo[] }).todos;
   },
 
   async updateTodo(id: string, data: UpdateTodoRequest) {
@@ -41,10 +43,11 @@ export const todoApi = {
       ...data,
       id,
     });
-    if (!response.todo) {
+    const todo = (response as unknown as { todo: Todo }).todo;
+    if (!todo) {
       throw new Error("updateTodo response did not contain a todo object.");
     }
-    return response.todo;
+    return todo;
   },
 
   async deleteTodo(id: string) {

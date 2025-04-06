@@ -16,6 +16,7 @@
   "devDependencies": {
     "@bufbuild/protoc-gen-es": "^2.2.5",
     "@connectrpc/protoc-gen-connect-es": "^1.6.1",
+    "@types/node": "^22.14.0",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2",
     "vite": "^6.2.4"

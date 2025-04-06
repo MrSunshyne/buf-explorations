@@ -1,7 +1,7 @@
 import { createClient } from "@connectrpc/connect";
 import { createGrpcTransport } from "@connectrpc/connect-node";
-import { TodoService } from "../../protos/gen/ts/v1/todo_pb";
-import { CreateTodoRequest, UpdateTodoRequest } from "../../protos/gen/ts/v1/todo_pb";
+import { TodoService } from "@buf-explorations/protos/gen/ts/v1/todo_pb";
+import { CreateTodoRequest, UpdateTodoRequest } from "@buf-explorations/protos/gen/ts/v1/todo_pb";
 
 const transport = createGrpcTransport({
   baseUrl: "http://localhost:9000"

@@ -2,22 +2,20 @@
   "compilerOptions": {
     "target": "ES2020",
     "module": "ES2020",
-    "moduleResolution": "bundler",
-    "baseUrl": ".",
-    "paths": {
-      "@protos/*": ["../protos/*"]
-    },
-    "allowJs": true,
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
+    "lib": ["ES2020", "DOM"],
+    "moduleResolution": "node",
+    "rootDir": ".",
     "outDir": "dist",
+    "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "strict": true
+    "paths": {
+      "@protos/*": ["../../protos/gen/ts/*"]
+    },
+    "baseUrl": ".",
+    "types": ["node"]
   },
-  "include": ["src"],
-  "exclude": ["node_modules"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
 } 

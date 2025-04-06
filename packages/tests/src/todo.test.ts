@@ -2,7 +2,7 @@ import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { todoApi } from './api';
 import { Code } from "@connectrpc/connect";
 import { ConnectError } from '@connectrpc/connect';
-import { CreateTodoRequest, CreateTodoRequestSchema, UpdateTodoRequest, UpdateTodoRequestSchema } from "../../protos/gen/ts/v1/todo_pb";
+import { CreateTodoRequest, CreateTodoRequestSchema, UpdateTodoRequest, UpdateTodoRequestSchema } from "@buf-explorations/protos/gen/ts/v1/todo_pb";
 import { create } from "@bufbuild/protobuf";
 
 let createdTodos: string[] = [];

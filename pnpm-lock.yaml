@@ -58,6 +58,9 @@ importers:
       '@connectrpc/protoc-gen-connect-es':
         specifier: ^1.6.1
         version: 1.6.1(@bufbuild/protoc-gen-es@2.2.5(@bufbuild/protobuf@2.2.5))(@connectrpc/connect@2.0.2(@bufbuild/protobuf@2.2.5))
+      '@types/node':
+        specifier: ^22.14.0
+        version: 22.14.0
       tsx:
         specifier: ^4.19.3
         version: 4.19.3
