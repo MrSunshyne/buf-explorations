@@ -1,15 +1,6 @@
 import { createGrpcTransport } from "@connectrpc/connect-node";
 import { createClient } from "@connectrpc/connect";
 import { TodoService } from "../../protos/gen/ts/protos/v1/todo_connect.ts";
-import { 
-  CreateTodoRequest, 
-  DeleteTodoRequest, 
-  GetTodoRequest, 
-  ListTodosRequest, 
-  ListTodosResponse,
-  UpdateTodoRequest,
-  Todo
-} from "../../protos/gen/ts/protos/v1/todo_pb.ts";
 
 // Create a transport with debug logging
 const transport = createGrpcTransport({
