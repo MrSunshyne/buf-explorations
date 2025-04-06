@@ -1,0 +1,13 @@
+{
+  "name": "swagger-ui",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.3",
+    "swagger-ui-express": "^5.0.0"
+  }
+} 
