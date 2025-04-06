@@ -13,6 +13,10 @@
     "test:ui": "vitest --ui"
   },
   "dependencies": {
+    "@buf-explorations/protos": "workspace:*",
+    "@bufbuild/protobuf": "^2.2.5",
+    "@connectrpc/connect": "^2.0.2",
+    "@connectrpc/connect-web": "^2.0.2",
     "vue": "^3.5.13"
   },
   "devDependencies": {

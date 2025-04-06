@@ -2,7 +2,8 @@ import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { todoApi } from './api';
 import { Code } from "@connectrpc/connect";
 import { ConnectError } from '@connectrpc/connect';
-import { CreateTodoRequest, UpdateTodoRequest } from "@protos/gen/ts/protos/v1/todo_pb";
+import { CreateTodoRequest, CreateTodoRequestSchema, UpdateTodoRequest, UpdateTodoRequestSchema } from "../../protos/gen/ts/v1/todo_pb";
+import { create } from "@bufbuild/protobuf";
 
 let createdTodos: string[] = [];
 
@@ -37,7 +38,7 @@ describe('Todo Service CRUD Operations', () => {
   });
 
   it('should create a new todo', async () => {
-    const createData = new CreateTodoRequest({
+    const createData = create(CreateTodoRequestSchema, {
       title: 'Test Todo Create',
       description: 'Description for create test',
     });
@@ -52,7 +53,7 @@ describe('Todo Service CRUD Operations', () => {
   });
 
   it('should get a todo by id', async () => {
-    const createData = new CreateTodoRequest({
+    const createData = create(CreateTodoRequestSchema, {
       title: 'Test Todo Get',
       description: 'Description for get test',
     });
@@ -65,11 +66,11 @@ describe('Todo Service CRUD Operations', () => {
 
   it('should list all todos', async () => {
     // Create a couple of todos to ensure the list is not empty
-    const createData1 = new CreateTodoRequest({ title: 'Test Todo List 1', description: 'Desc 1' });
+    const createData1 = create(CreateTodoRequestSchema, { title: 'Test Todo List 1', description: 'Desc 1' });
     const todo1 = await todoApi.createTodo(createData1);
     createdTodos.push(todo1.id);
 
-    const createData2 = new CreateTodoRequest({ title: 'Test Todo List 2', description: 'Desc 2' });
+    const createData2 = create(CreateTodoRequestSchema, { title: 'Test Todo List 2', description: 'Desc 2' });
     const todo2 = await todoApi.createTodo(createData2);
     createdTodos.push(todo2.id);
 
@@ -81,14 +82,14 @@ describe('Todo Service CRUD Operations', () => {
   });
 
   it('should update a todo', async () => {
-    const createData = new CreateTodoRequest({
+    const createData = create(CreateTodoRequestSchema, {
       title: 'Test Todo Update Original',
       description: 'Original Description',
     });
     const createdTodo = await todoApi.createTodo(createData);
     createdTodos.push(createdTodo.id);
 
-    const updateData = new UpdateTodoRequest({
+    const updateData = create(UpdateTodoRequestSchema, {
       id: createdTodo.id,
       title: 'Test Todo Update Updated',
       description: 'Updated Description',
@@ -104,10 +105,9 @@ describe('Todo Service CRUD Operations', () => {
     expect(updatedTodo.updatedAt).not.toBe(createdTodo.updatedAt);
   });
 
-
   it('should delete a todo', async () => {
     // Create a todo to delete
-    const createData = new CreateTodoRequest({
+    const createData = create(CreateTodoRequestSchema, {
       title: 'Test Todo Delete',
       description: 'This todo will be deleted',
       // completed is not part of CreateTodoRequest

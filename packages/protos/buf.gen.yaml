@@ -1,27 +1,10 @@
-version: v1
+version: v2
+clean: true
 plugins:
-  # Go
-  - plugin: go
-    out: gen/go
-    opt: paths=source_relative
-  - plugin: go-grpc
-    out: gen/go
-    opt: paths=source_relative
-  # REST Gateway
-  - plugin: grpc-gateway
-    out: gen/go
-    opt: paths=source_relative
-  # OpenAPI
-  - plugin: openapiv2
-    out: ../server/api/swagger
   # TypeScript
-  - plugin: es
+  - remote: buf.build/bufbuild/es:v2.2.5
     out: gen/ts
-    opt: 
+    opt:
       - target=ts
       - import_extension=none
-  - plugin: connect-es
-    out: gen/ts
-    opt: 
-      - target=ts
-      - import_extension=none 
+    include_imports: true 

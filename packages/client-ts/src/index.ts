@@ -1,19 +1,18 @@
 import { createGrpcTransport } from "@connectrpc/connect-node";
 import { createClient } from "@connectrpc/connect";
-import { TodoService } from "../../protos/gen/ts/protos/v1/todo_connect.ts";
+import { TodoService } from "../../protos/gen/ts/v1/todo_pb";
 
 // Create a transport with debug logging
 const transport = createGrpcTransport({
   baseUrl: "http://localhost:9000",
-  httpVersion: "2",
   interceptors: [
     (next) => async (req) => {
-      const { url, method } = req;
-      console.log(`🚀 ${method.name} (${url.split('/').pop()})`);
+      const { service, method } = req;
+      console.log(`🚀 ${service.typeName}.${method.name}`);
       
       const res = await next(req);
       
-      console.log(`✅ ${method.name} completed`);
+      console.log(`✅ ${service.typeName}.${method.name} completed`);
       return res;
     },
   ],
@@ -32,19 +31,17 @@ async function main() {
       title: "Learn gRPC",
       description: "Understand how to use gRPC with TypeScript",
     });
-    const createdTodo = createResponse.todo;
-    console.log(`✨ Todo created with ID: ${createdTodo?.id}`);
+    console.log(`✨ Todo created with ID: ${createResponse.todo?.id}`);
 
-    if (!createdTodo) {
+    if (!createResponse.todo) {
       throw new Error("Failed to create todo");
     }
 
     // Get the created todo
     console.log("🔍 Getting todo...");
     const getResponse = await client.getTodo({
-      id: createdTodo.id,
+      id: createResponse.todo.id,
     });
-    const retrievedTodo = getResponse.todo;
     console.log(`📋 Todo retrieved`);
 
     // List all todos
@@ -52,24 +49,22 @@ async function main() {
     const listResponse = await client.listTodos({
       pageSize: 10,
     });
-    const todos = listResponse.todos;
-    console.log(`📊 Found ${todos.length} todos`);
+    console.log(`📊 Found ${listResponse.todos.length} todos`);
 
     // Update the todo
     console.log("✏️ Updating todo...");
     const updateResponse = await client.updateTodo({
-      id: createdTodo.id,
+      id: createResponse.todo.id,
       title: "Learn gRPC - Updated",
       description: "Understanding how to use gRPC with TypeScript - Completed!",
       completed: true,
     });
-    const updatedTodo = updateResponse.todo;
     console.log(`🔄 Todo updated`);
 
     // Delete the todo
     console.log("🗑️ Deleting todo...");
     await client.deleteTodo({
-      id: createdTodo.id,
+      id: createResponse.todo.id,
     });
     console.log("🗑️ Todo deleted");
 
