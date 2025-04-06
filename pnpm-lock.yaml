@@ -14,6 +14,9 @@ importers:
       '@connectrpc/connect':
         specifier: 1.6.1
         version: 1.6.1(@bufbuild/protobuf@1.10.0)
+      '@connectrpc/connect-node':
+        specifier: ^1.6.1
+        version: 1.6.1(@bufbuild/protobuf@1.10.0)(@connectrpc/connect@1.6.1(@bufbuild/protobuf@1.10.0))
       '@connectrpc/connect-web':
         specifier: 1.6.1
         version: 1.6.1(@bufbuild/protobuf@1.10.0)(@connectrpc/connect@1.6.1(@bufbuild/protobuf@1.10.0))
@@ -155,6 +158,7 @@ packages:
   '@bufbuild/buf-linux-x64@1.51.0':
     resolution: {integrity: sha512-CiiFFPgQs3nDlAqr0CnbYBw2uKodBPJCaIrK/EPFqkJdWD58zcGbbtZp5uk3+uHHZ/syBxI8zl/iQSoeypt9cQ==}
     engines: {node: '>=12'}
+    cpu: [x64]
     os: [linux]
 
   '@bufbuild/protobuf@1.10.0':

@@ -1,11 +1,11 @@
 import { createClient } from "@connectrpc/connect";
-import { createGrpcWebTransport } from "@connectrpc/connect-web";
+import { createGrpcTransport } from "@connectrpc/connect-node";
 import { TodoService } from "@protos/gen/ts/protos/v1/todo_connect";
 import { CreateTodoRequest, UpdateTodoRequest } from "@protos/gen/ts/protos/v1/todo_pb";
 
-const transport = createGrpcWebTransport({
-  baseUrl: "http://localhost:8080",
-  useBinaryFormat: true,
+const transport = createGrpcTransport({
+  baseUrl: "http://localhost:9000",
+  httpVersion: "2",
 });
 
 const client = createClient(TodoService, transport);
