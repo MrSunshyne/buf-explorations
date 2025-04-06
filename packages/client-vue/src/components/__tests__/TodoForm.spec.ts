@@ -7,7 +7,7 @@ describe('TodoForm', () => {
     const wrapper = mount(TodoForm);
     
     // Fill in the form
-    await wrapper.find('[data-testid="todo-title-input"]').setValue('Test Todo');
+    await wrapper.find('[data-testid="todo-name-input"]').setValue('Test Todo');
     await wrapper.find('[data-testid="todo-description-input"]').setValue('Test Description');
     
     // Submit the form
@@ -16,15 +16,15 @@ describe('TodoForm', () => {
     // Check that the correct event was emitted
     expect(wrapper.emitted('submit')).toBeTruthy();
     expect(wrapper.emitted('submit')?.[0][0]).toEqual({
-      title: 'Test Todo',
+      name: 'Test Todo',
       description: 'Test Description',
     });
   });
 
-  it('does not emit submit event when title is empty', async () => {
+  it('does not emit submit event when name is empty', async () => {
     const wrapper = mount(TodoForm);
     
-    // Submit form without filling title
+    // Submit form without filling name
     await wrapper.find('[data-testid="todo-form"]').trigger('submit');
     
     // Check that no event was emitted
@@ -35,17 +35,17 @@ describe('TodoForm', () => {
     const wrapper = mount(TodoForm);
     
     // Fill in the form
-    const titleInput = wrapper.find('[data-testid="todo-title-input"]');
+    const nameInput = wrapper.find('[data-testid="todo-name-input"]');
     const descInput = wrapper.find('[data-testid="todo-description-input"]');
     
-    await titleInput.setValue('Test Todo');
+    await nameInput.setValue('Test Todo');
     await descInput.setValue('Test Description');
     
     // Submit the form
     await wrapper.find('[data-testid="todo-form"]').trigger('submit');
     
     // Check that inputs were cleared
-    expect((titleInput.element as HTMLInputElement).value).toBe('');
+    expect((nameInput.element as HTMLInputElement).value).toBe('');
     expect((descInput.element as HTMLInputElement).value).toBe('');
   });
 

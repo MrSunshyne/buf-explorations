@@ -1,11 +1,12 @@
 import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
 import TodoItem from '../TodoItem.vue';
-import { Todo } from '@protos/v1/todo_pb';
+import { create } from "@bufbuild/protobuf";
+import { TodoSchema } from '@buf-explorations/protos/gen/ts/v1/todo_pb';
 
-const mockTodo = new Todo({
+const mockTodo = create(TodoSchema, {
   id: '1',
-  title: 'Test Todo',
+  name: 'Test Todo',
   description: 'Test Description',
   completed: false,
 });
@@ -18,7 +19,7 @@ describe('TodoItem', () => {
       },
     });
     
-    expect(wrapper.find('[data-testid="todo-title"]').text()).toBe(mockTodo.title);
+    expect(wrapper.find('[data-testid="todo-name"]').text()).toBe(mockTodo.name);
     expect(wrapper.find('[data-testid="todo-description"]').text()).toContain(mockTodo.description);
     const checkbox = wrapper.find('[data-testid="todo-checkbox"]').element as HTMLInputElement;
     expect(checkbox.checked).toBe(false);
@@ -46,7 +47,7 @@ describe('TodoItem', () => {
     
     await wrapper.find('[data-testid="edit-button"]').trigger('click');
     
-    expect(wrapper.find('[data-testid="edit-title-input"]').exists()).toBe(true);
+    expect(wrapper.find('[data-testid="edit-name-input"]').exists()).toBe(true);
     expect(wrapper.find('[data-testid="edit-description-input"]').exists()).toBe(true);
   });
 
@@ -61,7 +62,7 @@ describe('TodoItem', () => {
     await wrapper.find('[data-testid="edit-button"]').trigger('click');
     
     // Update values
-    await wrapper.find('[data-testid="edit-title-input"]').setValue('Updated Title');
+    await wrapper.find('[data-testid="edit-name-input"]').setValue('Updated Name');
     await wrapper.find('[data-testid="edit-description-input"]').setValue('Updated Description');
     
     // Save changes
@@ -71,7 +72,7 @@ describe('TodoItem', () => {
     expect(wrapper.emitted('update')?.[0]).toEqual([
       mockTodo.id,
       {
-        title: 'Updated Title',
+        name: 'Updated Name',
         description: 'Updated Description',
       },
     ]);
@@ -88,14 +89,14 @@ describe('TodoItem', () => {
     await wrapper.find('[data-testid="edit-button"]').trigger('click');
     
     // Update values
-    await wrapper.find('[data-testid="edit-title-input"]').setValue('Updated Title');
+    await wrapper.find('[data-testid="edit-name-input"]').setValue('Updated Name');
     await wrapper.find('[data-testid="edit-description-input"]').setValue('Updated Description');
     
     // Cancel edit
     await wrapper.find('[data-testid="cancel-edit-button"]').trigger('click');
     
     expect(wrapper.emitted('update')).toBeFalsy();
-    expect(wrapper.find('[data-testid="todo-title"]').text()).toBe(mockTodo.title);
+    expect(wrapper.find('[data-testid="todo-name"]').text()).toBe(mockTodo.name);
   });
 
   it('emits delete event when delete button is clicked', async () => {
